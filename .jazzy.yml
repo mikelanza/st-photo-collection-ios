@@ -1,0 +1,8 @@
+author: Streetography
+author_url: https://twitter.com/  
+github_url: https://github.com/mikelanza/STPhotoCollection
+root_url: https://mikelanza.github.io/STPhotoCollection/
+module: STPhotoCollection
+output: docs
+theme: fullwidth
+xcodebuild_arguments: [-workspace, 'STPhotoCollection.xcworkspace', -scheme, 'STPhotoCollection-iOS']
