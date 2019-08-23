@@ -24,16 +24,16 @@ extension PhotosCollectionViewController {
     }
     
     private func setupNavigationBar() {
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = STPhotoCollectionStyle.shared.entityViewModel.backgroundColor
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.isTranslucent = STPhotoCollectionStyle.shared.navigationBarModel.isTranslucent
+        self.navigationController?.navigationBar.barTintColor = STPhotoCollectionStyle.shared.navigationBarModel.barTintColor
+        self.navigationController?.navigationBar.tintColor = STPhotoCollectionStyle.shared.navigationBarModel.tintColor
+        self.navigationController?.navigationBar.setBackgroundImage(STPhotoCollectionStyle.shared.navigationBarModel.backgroundImage, for: .default)
+        self.navigationController?.navigationBar.shadowImage = STPhotoCollectionStyle.shared.navigationBarModel.shadowImage
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: STPhotoCollectionStyle.shared.navigationBarModel.tintColor]
     }
     
     private func setupNavigationBarBackButton() {
-        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "btn-back"), style: .plain, target: self, action: #selector(PhotosCollectionViewController.didTapBackButton))
+        let button = UIBarButtonItem(image: STPhotoCollectionStyle.shared.backButtonModel.image, style: .plain, target: self, action: #selector(PhotosCollectionViewController.didTapBackButton))
         self.navigationItem.leftBarButtonItem = button
     }
     

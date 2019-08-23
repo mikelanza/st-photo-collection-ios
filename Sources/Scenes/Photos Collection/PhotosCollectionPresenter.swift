@@ -45,12 +45,12 @@ class PhotosCollectionPresenter: PhotosCollectionPresentationLogic {
         }
         switch level {
             case .location: return nil
-            case .block: return "block_white_icon"
-            case .neighborhood: return "neighborhood_white_icon"
-            case .city: return "city_white_icon"
-            case .county: return "county_white_icon"
+            case .block: return "st_photo_collection_block"
+            case .neighborhood: return "st_photo_collection_neighborhood"
+            case .city: return "st_photo_collection_city"
+            case .county: return "st_photo_collection_county"
             case .state: return "state_region_white_icon"
-            case .country: return "country_white_icon"
+            case .country: return "st_photo_collection_country"
             case .unknown: return nil
         }
     }
