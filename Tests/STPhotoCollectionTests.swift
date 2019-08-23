@@ -11,6 +11,6 @@ import XCTest
 
 class STPhotoCollectionTests: XCTestCase {
     func testFrameworkName() {
-        XCTAssertEqual(STPhotoCollection.name, "STPhotoCollection")
+        
     }
 }
