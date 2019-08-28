@@ -37,5 +37,6 @@ class STPhotoCollectionStyle {
     
     struct EntityViewModel {
         var backgroundColor: UIColor = UIColor(red: 53/255, green: 61/255, blue: 75/255, alpha: 1)
+        
     }
 }

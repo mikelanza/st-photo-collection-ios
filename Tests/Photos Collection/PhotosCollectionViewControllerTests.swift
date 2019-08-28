@@ -14,6 +14,8 @@ class PhotosCollectionViewControllerTests: XCTestCase {
     var sut: PhotosCollectionViewController!
     var interactorSpy: PhotosCollectionBusinessLogicSpy!
     var routerSpy: PhotosCollectionRoutingLogicSpy!
+    
+    var delegateSpy: PhotoCollectionViewControllerDelegateSpy!
     var window: UIWindow!
     
     override func setUp() {
@@ -38,6 +40,9 @@ class PhotosCollectionViewControllerTests: XCTestCase {
         
         self.routerSpy = PhotosCollectionRoutingLogicSpy()
         self.sut.router = self.routerSpy
+        
+        self.delegateSpy = PhotoCollectionViewControllerDelegateSpy()
+        self.sut.delegate = self.delegateSpy
     }
     
     func loadView() {
@@ -90,6 +95,13 @@ class PhotosCollectionViewControllerTests: XCTestCase {
     }
     
     // MARK: - Business tests
+    
+    func testDidTapBackButtonShouldRemoveViewController() {
+        self.loadView()
+    
+        self.sut.didTapBackButton()
+        XCTAssertTrue(self.routerSpy.removeViewControllerCalled)
+    }
     
     func testShouldFetchEntityDetailsWhenTheViewDidLoad() {
         self.loadView()
@@ -180,10 +192,10 @@ class PhotosCollectionViewControllerTests: XCTestCase {
         XCTAssertTrue(self.sut.sections[self.sut.photosSectionIndex].noMoreItems)
     }
 
-    func testDisplayPhotoDetailsView() {
+    func testDisplayPhotoDetailsViewShouldAskTheDelegateToSendNAvigateToPhotoDetailsForPhotoId() {
         self.loadView()
         self.sut.displayPhotoDetailView(viewModel: PhotosCollection.PresentPhotoDetail.ViewModel(photo: STPhoto(id: "")))
-        XCTAssertTrue(self.routerSpy.presentPhotoDetailViewCalled)
+        XCTAssertTrue(self.delegateSpy.photosCollectionViewControllerNavigateToPhotoDetailsForPhotoIdCalled)
     }
     
     func testDisplayFetchedPhotosShouldUpdateModel() {

@@ -14,7 +14,7 @@ import UIKit
 import STPhotoCore
 
 protocol PhotosCollectionRoutingLogic: NSObjectProtocol {
-    func popViewController()
+    func removeViewController()
     func presentPhotoDetailView(photo: STPhoto)
 }
 
@@ -26,9 +26,11 @@ class PhotosCollectionRouter: NSObject, PhotosCollectionRoutingLogic, PhotosColl
     weak var viewController: PhotosCollectionViewController?
     var dataStore: PhotosCollectionDataStore?
     
-    func popViewController() {
-        DispatchQueue.main.async {
-            let _ = self.viewController?.navigationController?.popViewController(animated: true)
+    func removeViewController() {
+        if let navigationController = self.viewController?.navigationController {
+            navigationController.popViewController(animated: true)
+        } else {
+            self.viewController?.dismiss(animated: true, completion: nil)
         }
     }
     

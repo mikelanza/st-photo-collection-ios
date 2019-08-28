@@ -12,17 +12,14 @@ class PhotosCollectionViewLocalization {
     static let sharedInstance = PhotosCollectionViewLocalization()
     
     private init() {
-        
     }
     
     private struct LocalizedKey {
         static let
         addToFavoritesButtonTitle = "AddToFavoritesButton.title",
         removeFromFavoritesButtonTitle = "RemoveFromFavoritesButton.title",
-        
         noPhotosTitle = "NoPhotos.title",
         noMorePhotosTitle = "NoMorePhotos.title",
-        
         blockedUserTitle = "BlockedUser.title"
     }
 

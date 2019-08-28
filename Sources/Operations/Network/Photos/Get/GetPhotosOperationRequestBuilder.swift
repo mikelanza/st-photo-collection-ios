@@ -17,7 +17,7 @@ class GetPhotosOperationRequestBuilder {
     }
     
     public func request() -> URLRequest? {
-        guard let baseUrl = URL(string: EndpointsBuilder.shared.getCollectionEndpoint()), let url = self.addQueryParameters(self.parameters(), toURL: baseUrl) else {
+        guard let baseUrl = URL(string: EndpointsBuilder.shared.getPhotosEndpoint()), let url = self.addQueryParameters(self.parameters(), toURL: baseUrl) else {
             return nil
         }
         

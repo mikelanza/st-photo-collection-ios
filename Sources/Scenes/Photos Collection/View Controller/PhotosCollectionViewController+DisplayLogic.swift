@@ -85,6 +85,6 @@ extension PhotosCollectionViewController: PhotosCollectionDisplayLogic {
     }
     
     func displayPhotoDetailView(viewModel: PhotosCollection.PresentPhotoDetail.ViewModel) {
-        self.router?.presentPhotoDetailView(photo: viewModel.photo)
+        self.delegate?.photoCollectionViewController(self, navigateToPhotoDetailsFor: viewModel.photo.id)
     }
 }

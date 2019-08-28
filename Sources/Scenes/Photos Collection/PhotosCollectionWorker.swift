@@ -48,7 +48,6 @@ class PhotosCollectionWorker {
     }
     
     func fetchPhotos(model: FetchPhotosModel) {
-        // TODO: Update STPhotoCore
         let entity = GetPhotosOperationModel.Entity(entityId: model.geoEntity.id, entityType: model.entityModel.level.rawValue)
         let filter = GetPhotosOperationModel.Filter(userId: model.filterModel.userId, collectionId: model.filterModel.collectionId)
         let entityFilter = GetPhotosOperationModel.EntityFilter(limit: model.limit, skip: model.skip, entity: entity, filter: filter)

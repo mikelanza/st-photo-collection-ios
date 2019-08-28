@@ -17,8 +17,8 @@ protocol PhotosCollectionInterface: NSObjectProtocol {
     func setImage(image: UIImage?)
 }
 
-enum PhotosCollection {
-    struct Model {
+public enum PhotosCollection {
+    public struct Model {
         let entityModel: EntityModel
         let filterModel: FilterModel
         var geoEntity: GeoEntity?

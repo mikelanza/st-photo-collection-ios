@@ -71,6 +71,7 @@
 		8501CD912310220600F59DE1 /* PhotosCollectionPresentationLogicSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8501CD872310220600F59DE1 /* PhotosCollectionPresentationLogicSpy.swift */; };
 		8501CD922310220600F59DE1 /* PhotosCollectionWorkerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8501CD882310220600F59DE1 /* PhotosCollectionWorkerSpy.swift */; };
 		8501CD962310308200F59DE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8501CD9423102F2500F59DE1 /* Assets.xcassets */; };
+		851765172316A39600AEDD1C /* PhotoCollectionViewControllerDelegateSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851765162316A39600AEDD1C /* PhotoCollectionViewControllerDelegateSpy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +165,7 @@
 		8501CD872310220600F59DE1 /* PhotosCollectionPresentationLogicSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionPresentationLogicSpy.swift; sourceTree = "<group>"; };
 		8501CD882310220600F59DE1 /* PhotosCollectionWorkerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionWorkerSpy.swift; sourceTree = "<group>"; };
 		8501CD9423102F2500F59DE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		851765162316A39600AEDD1C /* PhotoCollectionViewControllerDelegateSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewControllerDelegateSpy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -676,6 +678,7 @@
 				8501CD862310220600F59DE1 /* PhotosCollectionBusinessLogicSpy.swift */,
 				8501CD872310220600F59DE1 /* PhotosCollectionPresentationLogicSpy.swift */,
 				8501CD882310220600F59DE1 /* PhotosCollectionWorkerSpy.swift */,
+				851765162316A39600AEDD1C /* PhotoCollectionViewControllerDelegateSpy.swift */,
 			);
 			path = "Test Doubles";
 			sourceTree = "<group>";
@@ -1094,6 +1097,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3549BB8B1DA38C0A00C63030 /* STPhotoCollectionTests.swift in Sources */,
+				851765172316A39600AEDD1C /* PhotoCollectionViewControllerDelegateSpy.swift in Sources */,
 				8501CD8D2310220600F59DE1 /* PhotosCollectionViewControllerTests.swift in Sources */,
 				8501CD902310220600F59DE1 /* PhotosCollectionBusinessLogicSpy.swift in Sources */,
 				8501CD892310220600F59DE1 /* PhotosCollectionInteractorTests.swift in Sources */,

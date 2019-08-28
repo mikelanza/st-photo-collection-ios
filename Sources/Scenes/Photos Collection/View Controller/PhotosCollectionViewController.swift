@@ -13,9 +13,15 @@
 import UIKit
 import STPhotoCore
 
-class PhotosCollectionViewController: UIViewController {
+public protocol PhotoCollectionViewControllerDelegate: NSObjectProtocol {
+    func photoCollectionViewController(_ viewController: PhotosCollectionViewController?, navigateToPhotoDetailsFor photoId: String?)
+}
+
+public class PhotosCollectionViewController: UIViewController {
     var interactor: PhotosCollectionBusinessLogic?
     var router: (NSObjectProtocol & PhotosCollectionRoutingLogic & PhotosCollectionDataPassing)?
+    
+    public weak var delegate: PhotoCollectionViewControllerDelegate?
     
     weak var entityView: EntityView!
     weak var collectionView: UICollectionView!
@@ -47,7 +53,7 @@ class PhotosCollectionViewController: UIViewController {
     
     // MARK: Object lifecycle
     
-    init(model: PhotosCollection.Model) {
+    public init(model: PhotosCollection.Model) {
         super.init(nibName: nil, bundle: nil)
         self.setup()
         self.interactor?.setModel(model: model)
@@ -80,7 +86,7 @@ class PhotosCollectionViewController: UIViewController {
 
     // MARK: View lifecycle
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         self.setupInteractor()
         self.setupSections()
@@ -92,7 +98,7 @@ class PhotosCollectionViewController: UIViewController {
         self.shouldFetchEntityDetails()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.showNavigationBar()
     }
@@ -123,7 +129,7 @@ extension PhotosCollectionViewController {
 // MARK: - Scroll view delegate
 
 extension PhotosCollectionViewController {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y.rounded(.up)
         let maximumOffset = (scrollView.contentSize.height - scrollView.frame.size.height).rounded(.up)
         if currentOffset == maximumOffset && scrollView.isDecelerating {
@@ -144,6 +150,6 @@ extension PhotosCollectionViewController {
 
 extension PhotosCollectionViewController {
     @objc func didTapBackButton() {
-        self.router?.popViewController()
+        self.router?.removeViewController()
     }
 }
