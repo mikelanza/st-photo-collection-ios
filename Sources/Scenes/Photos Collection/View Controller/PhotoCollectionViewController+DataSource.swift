@@ -1,5 +1,5 @@
 //
-//  PhotosCollectionViewController+DataSource.swift
+//  PhotoCollectionViewController+DataSource.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - UICollectionViewDataSource
 
-extension PhotosCollectionViewController: UICollectionViewDataSource {
+extension PhotoCollectionViewController: UICollectionViewDataSource {
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.sections.count
     }
@@ -61,10 +61,10 @@ extension PhotosCollectionViewController: UICollectionViewDataSource {
 
 // MARK: - Photo collection view cell
 
-extension PhotosCollectionViewController: PhotoCollectionViewCellDelegate {
+extension PhotoCollectionViewController: PhotoCollectionViewCellDelegate {
     private func photoCollectionViewCellForIndexPath(indexPath: IndexPath) -> PhotoCollectionViewCell {
         let cell = self.reusablePhotoCollectionViewCellForIndexPath(indexPath: indexPath)
-        let displayedPhoto = self.sections[indexPath.section].items[indexPath.item] as? PhotosCollection.DisplayedPhoto
+        let displayedPhoto = self.sections[indexPath.section].items[indexPath.item] as? PhotoCollection.DisplayedPhoto
         cell.photoId = displayedPhoto?.id
         cell.delegate = self
         cell.setImage(image: nil)
@@ -80,24 +80,24 @@ extension PhotosCollectionViewController: PhotoCollectionViewCellDelegate {
     }
     
     func photoCollectionViewCell(cell: PhotoCollectionViewCell?, didSelectContentView view: UIView?, photoId: String?) {
-        let request = PhotosCollection.PresentPhoto.Request(photoId: photoId)
+        let request = PhotoCollection.PresentPhoto.Request(photoId: photoId)
         self.interactor?.shouldPresentPhoto(request: request)
     }
 }
 
 // MARK: - UICollectionViewDelegate
 
-extension PhotosCollectionViewController: UICollectionViewDelegate {
+extension PhotoCollectionViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let displayedPhoto = self.displayedPhotoFor(indexPath: indexPath)
-        let request = PhotosCollection.PresentPhoto.Request(photoId: displayedPhoto?.id)
+        let request = PhotoCollection.PresentPhoto.Request(photoId: displayedPhoto?.id)
         self.interactor?.shouldPresentPhoto(request: request)
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension PhotosCollectionViewController: UICollectionViewDelegateFlowLayout {
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         var height: CGFloat = 0
         if self.sections[section].isLoading { height = 50 }
@@ -176,8 +176,8 @@ extension PhotosCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - Auxiliary
 
-extension PhotosCollectionViewController {
-    func insertDisplayedPhotos(displayedPhotos: [PhotosCollection.DisplayedPhoto]) {
+extension PhotoCollectionViewController {
+    func insertDisplayedPhotos(displayedPhotos: [PhotoCollection.DisplayedPhoto]) {
         DispatchQueue.main.async {
             self.collectionView?.collectionViewLayout.invalidateLayout()
             self.collectionView?.performBatchUpdates({
@@ -230,11 +230,11 @@ extension PhotosCollectionViewController {
         return self.sections[self.photosSectionIndex].items
             .enumerated()
             .reversed()
-            .first(where: { ($0.element as? PhotosCollection.DisplayedPhoto)?.id == photoId })?.offset
+            .first(where: { ($0.element as? PhotoCollection.DisplayedPhoto)?.id == photoId })?.offset
     }
     
-    private func displayedPhotoFor(indexPath: IndexPath) -> PhotosCollection.DisplayedPhoto? {
-        return self.sections[indexPath.section].items[indexPath.item] as? PhotosCollection.DisplayedPhoto
+    private func displayedPhotoFor(indexPath: IndexPath) -> PhotoCollection.DisplayedPhoto? {
+        return self.sections[indexPath.section].items[indexPath.item] as? PhotoCollection.DisplayedPhoto
     }
 }
 

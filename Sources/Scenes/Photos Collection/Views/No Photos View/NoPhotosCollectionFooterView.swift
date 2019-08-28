@@ -63,7 +63,7 @@ extension NoPhotosCollectionFooterView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14.0)
         label.textColor = UIColor(red: 185/255, green: 190/255, blue: 204/255, alpha: 1.0)
-        label.text = PhotosCollectionViewLocalization.sharedInstance.noPhotosTitle
+        label.text = PhotoCollectionViewLocalization.sharedInstance.noPhotosTitle
         self.addSubview(label)
         self.titleLabel = label
     }

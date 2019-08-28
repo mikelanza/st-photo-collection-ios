@@ -1,5 +1,5 @@
 //
-//  PhotosCollectionDisplayLogicSpy.swift
+//  PhotoCollectionDisplayLogicSpy.swift
 //  StreetographyTests
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -8,7 +8,7 @@
 
 @testable import STPhotoCollection
 
-class PhotosCollectionDisplayLogicSpy: NSObject, PhotosCollectionDisplayLogic {
+class PhotoCollectionDisplayLogicSpy: NSObject, PhotoCollectionDisplayLogic {
     var displayFetchedPhotosCalled: Bool = false
     var displayEntityDetailsCalled: Bool = false
     var displayWillFetchEntityDetailsCalled: Bool = false
@@ -19,11 +19,11 @@ class PhotosCollectionDisplayLogicSpy: NSObject, PhotosCollectionDisplayLogic {
     var displayNoMorePhotosCalled: Bool = false
     var displayPhotoDetailViewCalled: Bool = false
     
-    func displayFetchedPhotos(viewModel: PhotosCollection.FetchPhotos.ViewModel) {
+    func displayFetchedPhotos(viewModel: PhotoCollection.FetchPhotos.ViewModel) {
         self.displayFetchedPhotosCalled = true
     }
     
-    func displayEntityDetails(viewModel: PhotosCollection.PresentEntityDetails.ViewModel) {
+    func displayEntityDetails(viewModel: PhotoCollection.PresentEntityDetails.ViewModel) {
         self.displayEntityDetailsCalled = true
     }
     
@@ -51,7 +51,7 @@ class PhotosCollectionDisplayLogicSpy: NSObject, PhotosCollectionDisplayLogic {
         self.displayNoMorePhotosCalled = true
     }
     
-    func displayPhotoDetailView(viewModel: PhotosCollection.PresentPhotoDetail.ViewModel) {
+    func displayPhotoDetailView(viewModel: PhotoCollection.PresentPhotoDetail.ViewModel) {
         self.displayPhotoDetailViewCalled = true
     }
 }

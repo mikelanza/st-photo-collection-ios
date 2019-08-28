@@ -1,5 +1,5 @@
 //
-//  PhotosCollectionWorkerSpy.swift
+//  PhotoCollectionWorkerSpy.swift
 //  StreetographyTests
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -9,16 +9,16 @@
 @testable import STPhotoCollection
 import STPhotoCore
 
-class PhotosCollectionWorkerSpy: PhotosCollectionWorker {
+class PhotoCollectionWorkerSpy: PhotoCollectionWorker {
     var delay: Double = 0
     
     var fetchGeoEntityCalled: Bool = false
     var fetchPhotosCalled: Bool = false
     var downloadPhotoForCalled: Bool = false
     
-    var geoEntity: GeoEntity? = PhotosCollectionSeeds().geoEntity(id: 10, name: "name", level: .block)
+    var geoEntity: GeoEntity? = PhotoCollectionSeeds().geoEntity(id: 10, name: "name", level: .block)
     
-    var photos: [STPhoto] = PhotosCollectionSeeds().getPhotos()
+    var photos: [STPhoto] = PhotoCollectionSeeds().getPhotos()
     
     var shouldFailFetchGeoEntity: Bool = false
     
@@ -40,7 +40,7 @@ class PhotosCollectionWorkerSpy: PhotosCollectionWorker {
         }
     }
     
-    override func downloadPhotoFor(displayedPhoto: PhotosCollection.DisplayedPhoto?) {
+    override func downloadPhotoFor(displayedPhoto: PhotoCollection.DisplayedPhoto?) {
         self.downloadPhotoForCalled = true
     }
     

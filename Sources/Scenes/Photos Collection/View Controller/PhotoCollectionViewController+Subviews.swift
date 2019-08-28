@@ -1,5 +1,5 @@
 //
-//  PhotosCollectionViewController+Subviews.swift
+//  PhotoCollectionViewController+Subviews.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - Setup subviews
 
-extension PhotosCollectionViewController {
+extension PhotoCollectionViewController {
     func setupSubviews() {
         self.setupNavigationBar()
         self.setupNavigationBarBackButton()
@@ -33,7 +33,7 @@ extension PhotosCollectionViewController {
     }
     
     private func setupNavigationBarBackButton() {
-        let button = UIBarButtonItem(image: STPhotoCollectionStyle.shared.backButtonModel.image, style: .plain, target: self, action: #selector(PhotosCollectionViewController.didTapBackButton))
+        let button = UIBarButtonItem(image: STPhotoCollectionStyle.shared.backButtonModel.image, style: .plain, target: self, action: #selector(PhotoCollectionViewController.didTapBackButton))
         self.navigationItem.leftBarButtonItem = button
     }
     
@@ -78,7 +78,7 @@ extension PhotosCollectionViewController {
 
 // MARK: - Setup subviews constraints
 
-extension PhotosCollectionViewController {
+extension PhotoCollectionViewController {
     func setupSubviewsConstraints() {
         self.setupEntityViewConstraints()
         self.setupCollectionViewConstraints()

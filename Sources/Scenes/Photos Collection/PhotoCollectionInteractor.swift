@@ -1,5 +1,5 @@
 //
-//  PhotosCollectionInteractor.swift
+//  PhotoCollectionInteractor.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Dimitri Strauneanu on 08/08/2017.
@@ -13,38 +13,38 @@
 import UIKit
 import STPhotoCore
 
-protocol PhotosCollectionBusinessLogic {
+protocol PhotoCollectionBusinessLogic {
     func shouldFetchEntityDetails()
     
     func shouldFetchNextEntityPhotos()
     
-    func shouldPresentPhoto(request: PhotosCollection.PresentPhoto.Request)
+    func shouldPresentPhoto(request: PhotoCollection.PresentPhoto.Request)
     
-    func shouldDownloadPhoto(request: PhotosCollection.DownloadPhoto.Request)
+    func shouldDownloadPhoto(request: PhotoCollection.DownloadPhoto.Request)
     
-    func setModel(model: PhotosCollection.Model)
+    func setModel(model: PhotoCollection.Model)
     func setPhotoItemSize(size: CGSize)
 }
 
-protocol PhotosCollectionDataStore {
+protocol PhotoCollectionDataStore {
     var photos: [STPhoto] { get set }
     
-    var model: PhotosCollection.Model? { get set }
+    var model: PhotoCollection.Model? { get set }
     
     var photoItemSize: CGSize { get set }
 }
 
-class PhotosCollectionInteractor: PhotosCollectionBusinessLogic, PhotosCollectionDataStore {
-    var presenter: PhotosCollectionPresentationLogic?
-    var worker: PhotosCollectionWorker?
+class PhotoCollectionInteractor: PhotoCollectionBusinessLogic, PhotoCollectionDataStore {
+    var presenter: PhotoCollectionPresentationLogic?
+    var worker: PhotoCollectionWorker?
     
     var photos: [STPhoto] = []
     
-    var model: PhotosCollection.Model?
+    var model: PhotoCollection.Model?
     
     var photoItemSize: CGSize = CGSize.zero
     
-    var photosPaginationModel: PhotosCollection.PaginationModel
+    var photosPaginationModel: PhotoCollection.PaginationModel
     
     private let photosMinimumThreshold: Int = 20
     
@@ -52,7 +52,7 @@ class PhotosCollectionInteractor: PhotosCollectionBusinessLogic, PhotosCollectio
         return self.photos.filter({ $0.id == photoId }).first
     }
     
-    func setModel(model: PhotosCollection.Model) {
+    func setModel(model: PhotoCollection.Model) {
         self.model = model
     }
     
@@ -61,15 +61,14 @@ class PhotosCollectionInteractor: PhotosCollectionBusinessLogic, PhotosCollectio
     }
     
     init() {
-        self.photosPaginationModel = PhotosCollection.PaginationModel(isFetchingItems: false, noMoreItems: false, noItems: false, limit: 30, currentPage: 0)
-//        self.currentUser = STUser.currentUser
-        self.worker = PhotosCollectionWorker(delegate: self)
+        self.photosPaginationModel = PhotoCollection.PaginationModel(isFetchingItems: false, noMoreItems: false, noItems: false, limit: 30, currentPage: 0)
+        self.worker = PhotoCollectionWorker(delegate: self)
     }
 }
 
 // MARK: - Business logic
 
-extension PhotosCollectionInteractor {
+extension PhotoCollectionInteractor {
     func shouldFetchEntityDetails() {
         self.presentEntityDetails()
         self.fetchGeoEntity()
@@ -103,7 +102,7 @@ extension PhotosCollectionInteractor {
         }
     }
     
-    private func fetchPhotosWorkerModel() -> PhotosCollectionWorker.FetchPhotosModel? {
+    private func fetchPhotosWorkerModel() -> PhotoCollectionWorker.FetchPhotosModel? {
         guard let model = self.model else {
             return nil
         }
@@ -111,25 +110,25 @@ extension PhotosCollectionInteractor {
             return nil
         }
         let skip = self.photosPaginationModel.limit * self.photosPaginationModel.currentPage
-        return PhotosCollectionWorker.FetchPhotosModel(skip: skip, limit: self.photosPaginationModel.limit, geoEntity: geoEntity, entityModel: model.entityModel, filterModel: model.filterModel)
+        return PhotoCollectionWorker.FetchPhotosModel(skip: skip, limit: self.photosPaginationModel.limit, geoEntity: geoEntity, entityModel: model.entityModel, filterModel: model.filterModel)
     }
     
-    func shouldPresentPhoto(request: PhotosCollection.PresentPhoto.Request) {
+    func shouldPresentPhoto(request: PhotoCollection.PresentPhoto.Request) {
         if let photo = self.photoForId(photoId: request.photoId) {
             self.presentPhotoDetailFor(photo: photo)
         }
     }
         
-    func shouldDownloadPhoto(request: PhotosCollection.DownloadPhoto.Request) {
+    func shouldDownloadPhoto(request: PhotoCollection.DownloadPhoto.Request) {
         if request.displayedPhoto?.imageUrl != nil {
             self.worker?.downloadPhotoFor(displayedPhoto: request.displayedPhoto)
         }
     }
 }
 
-// MARK: - PhotosCollectionWorkerDelegate
+// MARK: - PhotoCollectionWorkerDelegate
 
-extension PhotosCollectionInteractor: PhotosCollectionWorkerDelegate {
+extension PhotoCollectionInteractor: PhotoCollectionWorkerDelegate {
     func successDidGetGeoEntity(geoEntity: GeoEntity?) {
         if let entity = geoEntity {
             self.model?.geoEntity = entity
@@ -172,25 +171,25 @@ extension PhotosCollectionInteractor: PhotosCollectionWorkerDelegate {
         }
     }
     
-    func successDidFetchPhotoImage(displayedPhoto: PhotosCollection.DisplayedPhoto?, image: UIImage?) {
+    func successDidFetchPhotoImage(displayedPhoto: PhotoCollection.DisplayedPhoto?, image: UIImage?) {
         displayedPhoto?.setImage(image: image)
     }
     
-    func failureDidFetchPhotoImage(displayedPhoto: PhotosCollection.DisplayedPhoto?, error: OperationError) {
+    func failureDidFetchPhotoImage(displayedPhoto: PhotoCollection.DisplayedPhoto?, error: OperationError) {
         
     }
 }
 
 // MARK: - Presentation logic (VIP)
 
-extension PhotosCollectionInteractor {
+extension PhotoCollectionInteractor {
     private func presentPhotos(photos: [STPhoto]) {
-        let response = PhotosCollection.FetchPhotos.Response(photos: photos, photoSize: self.photoItemSize)
+        let response = PhotoCollection.FetchPhotos.Response(photos: photos, photoSize: self.photoItemSize)
         self.presenter?.presentFetchedPhotos(response: response)
     }
     
     private func presentPhotoDetailFor(photo: STPhoto) {
-        let response = PhotosCollection.PresentPhotoDetail.Response(photo: photo)
+        let response = PhotoCollection.PresentPhotoDetail.Response(photo: photo)
         self.presenter?.presentPhotoDetailView(response: response)
     }
     
@@ -202,7 +201,7 @@ extension PhotosCollectionInteractor {
 
     private func presentEntityDetails() {
         if let model = self.model {
-            let response = PhotosCollection.PresentEntityDetails.Response(name: model.geoEntity?.name, level: model.entityModel.level)
+            let response = PhotoCollection.PresentEntityDetails.Response(name: model.geoEntity?.name, level: model.entityModel.level)
             self.presenter?.presentEntityDetails(response: response)
         }
     }

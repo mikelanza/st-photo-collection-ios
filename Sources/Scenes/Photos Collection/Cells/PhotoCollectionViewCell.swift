@@ -13,7 +13,7 @@ protocol PhotoCollectionViewCellDelegate: NSObjectProtocol {
     func photoCollectionViewCell(cell: PhotoCollectionViewCell?, didSelectContentView view: UIView?, photoId: String?)
 }
 
-class PhotoCollectionViewCell: UICollectionViewCell, DefaultReuseIdentifier, PhotosCollectionInterface {
+class PhotoCollectionViewCell: UICollectionViewCell, DefaultReuseIdentifier, PhotoCollectionInterface {
     private weak var imageView: UIImageView!
     
     weak var delegate: PhotoCollectionViewCellDelegate?

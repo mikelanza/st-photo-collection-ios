@@ -1,5 +1,5 @@
 //
-//  PhotosCollectionInteractorTests.swift
+//  PhotoCollectionInteractorTests.swift
 //  StreetographyTests
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -10,14 +10,14 @@
 import XCTest
 import STPhotoCore
 
-class PhotosCollectionInteractorTests: XCTestCase {
-    var sut: PhotosCollectionInteractor!
-    var presenterSpy: PhotosCollectionPresentationLogicSpy!
-    var workerSpy: PhotosCollectionWorkerSpy!
+class PhotoCollectionInteractorTests: XCTestCase {
+    var sut: PhotoCollectionInteractor!
+    var presenterSpy: PhotoCollectionPresentationLogicSpy!
+    var workerSpy: PhotoCollectionWorkerSpy!
     
     override func setUp() {
         super.setUp()
-        self.setupPhotosCollectionInteractor()
+        self.setupPhotoCollectionInteractor()
     }
     
     override func tearDown() {
@@ -26,13 +26,13 @@ class PhotosCollectionInteractorTests: XCTestCase {
     
     // MARK: - Test setup
     
-    func setupPhotosCollectionInteractor() {
-        self.sut = PhotosCollectionInteractor()
+    func setupPhotoCollectionInteractor() {
+        self.sut = PhotoCollectionInteractor()
         
-        self.presenterSpy = PhotosCollectionPresentationLogicSpy()
+        self.presenterSpy = PhotoCollectionPresentationLogicSpy()
         self.sut.presenter = self.presenterSpy
         
-        self.workerSpy = PhotosCollectionWorkerSpy(delegate: self.sut)
+        self.workerSpy = PhotoCollectionWorkerSpy(delegate: self.sut)
         self.sut.worker = self.workerSpy
     }
     
@@ -40,7 +40,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     
     func testSetModel() {
         
-        let model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        let model = PhotoCollectionSeeds().getPhotosCollectionModel()
         self.sut.setModel(model: model)
         
         XCTAssertEqual(self.sut.model?.entityModel.location, model.entityModel.location)
@@ -60,42 +60,42 @@ class PhotosCollectionInteractorTests: XCTestCase {
     // MARK: Fetch entity
     
     func testShouldFetchEntityDetailsShouldAskPresenterToPresentEntityDetails() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.sut.shouldFetchEntityDetails()
         XCTAssertTrue(self.presenterSpy.presentEntityDetailsCalled)
     }
     
     func testShouldFetchEntityDetailsShouldAskPresenterToPresentWillFetchEntityDetails() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.sut.shouldFetchEntityDetails()
         XCTAssertTrue(self.presenterSpy.presentWillFetchEntityDetailsCalled)
     }
     
     func testShouldFetchEntityDetailsShouldAskWorkerToFetchGeoEntity() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.sut.shouldFetchEntityDetails()
         XCTAssertTrue(self.workerSpy.fetchGeoEntityCalled)
     }
     
     func testShouldFetchEntityDetailsShouldUpdateGeoEntityModelWhenSuccessDidGetGeoEntityWithEntity() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.sut.shouldFetchEntityDetails()
         XCTAssertNotNil(self.sut.model?.geoEntity)
     }
     
     func testShouldFetchEntityDetailsShouldAskPresenterToPresentEntityDetailsWhenSuccessDidGetGeoEntityWithEntity() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.sut.shouldFetchEntityDetails()
         XCTAssertTrue(self.presenterSpy.presentEntityDetailsCalled)
     }
     
     func testShouldFetchEntityDetailsShouldAskPresenterToPresentNoPhotosWhenSuccessDidGetGeoEntityWithNoEntity() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.workerSpy.geoEntity = nil
         
@@ -104,7 +104,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsShouldAskPresenterToPresentDidFetchEntityDetailsWhenSuccessDidGetGeoEntityWithNoEntity() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.workerSpy.geoEntity = nil
         
@@ -113,7 +113,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsShouldUpdatePhotosPaginationModelWhenSuccessDidGetGeoEntityWithNoEntity() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.workerSpy.geoEntity = nil
         
@@ -122,7 +122,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsShouldUpdatePhotosPaginationModelWhenServerErrorDidGetGeoEntity() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.workerSpy.shouldFailFetchGeoEntity = true
         
@@ -131,7 +131,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsShouldAskPresenterToPresentNoPhotosWhenServerErrorDidGetGeoEntity() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.workerSpy.shouldFailFetchGeoEntity = true
         
@@ -140,7 +140,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsShouldAskPresenterToPresentDidFetchEntityDetailsWhenServerErrorDidGetGeoEntity() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.workerSpy.shouldFailFetchGeoEntity = true
         
@@ -149,7 +149,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsShouldUpdatePhotosPaginationModelWhenOperationErrorDidGetGeoEntity() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.workerSpy.shouldFailFetchGeoEntity = true
         
@@ -158,7 +158,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsShouldAskPresenterToPresentNoPhotosWhenOperationErrorDidGetGeoEntity() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.workerSpy.shouldFailFetchGeoEntity = true
         
@@ -167,7 +167,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsShouldAskPresenterToPresentDidFetchEntityDetailsWhenOperationErrorDidGetGeoEntity() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.workerSpy.shouldFailFetchGeoEntity = true
         
@@ -176,7 +176,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosWhenIsFetchingEntityPhotos() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         self.sut.photosPaginationModel.isFetchingItems = true
         
         self.sut.shouldFetchEntityDetails()
@@ -184,7 +184,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosWhenNoItems() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         self.sut.photosPaginationModel.noItems = true
         
         self.sut.shouldFetchEntityDetails()
@@ -192,7 +192,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosWhenNoMoreItems() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         self.sut.photosPaginationModel.noMoreItems = true
         
         self.sut.shouldFetchEntityDetails()
@@ -200,41 +200,41 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosShouldUpdateIsFetchingItemsModel() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         self.workerSpy.delay = 0.1
         self.sut.shouldFetchEntityDetails()
         XCTAssertTrue(self.sut.photosPaginationModel.isFetchingItems)
     }
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosShouldAskThePresenterToPresentWillFetchPhotos() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         self.sut.shouldFetchEntityDetails()
         XCTAssertTrue(self.presenterSpy.presentWillFetchPhotosCalled)
     }
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosShouldAskTheWorkerToFetchPhotos() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.sut.shouldFetchEntityDetails()
         XCTAssertTrue(self.workerSpy.fetchPhotosCalled)
     }
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosShouldUpdatePhotosModelWhenSuccessDidFetchPhotos() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.sut.shouldFetchEntityDetails()
         XCTAssertNotEqual(self.sut.photos.count, 0)
     }
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosShouldAskThePresenterToPresentPhotosWhenSuccessDidFetchPhotos() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.sut.shouldFetchEntityDetails()
         XCTAssertTrue(self.presenterSpy.presentFetchedPhotosCalled)
     }
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosShouldUpdatePhotosPaginationModelWhenSuccessDidFetchPhotos() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         let currentPage = self.sut.photosPaginationModel.currentPage
         
@@ -244,15 +244,15 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosShouldUpdatePhotosModelWhenSuccessDidFetchLastPhotos() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
-        self.workerSpy.photos = [PhotosCollectionSeeds().getPhotos().first!]
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
+        self.workerSpy.photos = [PhotoCollectionSeeds().getPhotos().first!]
         
         self.sut.shouldFetchEntityDetails()
         XCTAssertNotEqual(self.sut.photos.count, 0)
     }
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosShouldAskThePresenterToPresentPhotosWhenSuccessDidFetchLastPhotos() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         
         self.workerSpy.photos = []
         
@@ -262,7 +262,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosShouldAskThePresenterToPresentDidFetchPhotosWhenSuccessDidFetchLastPhotos() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         self.workerSpy.photos = []
         
         self.sut.shouldFetchEntityDetails()
@@ -270,7 +270,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosShouldUpdatePhotosPaginationModelWhenSuccessDidFetchLastPhotos() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         self.workerSpy.photos = []
         
         self.sut.shouldFetchEntityDetails()
@@ -279,7 +279,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldFetchEntityDetailsAndShouldFetchPhotosShouldAskThePresenterToPresentNoMorePhotosWhenSuccessDidFetchLastPhotos() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
         self.workerSpy.photos = []
         
         self.sut.shouldFetchEntityDetails()
@@ -287,13 +287,13 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     func testShouldPresentPhoto() {
-        self.sut.photos = PhotosCollectionSeeds().getPhotos()
-        self.sut.shouldPresentPhoto(request: PhotosCollection.PresentPhoto.Request(photoId: PhotosCollectionSeeds().getPhotos().first?.id))
+        self.sut.photos = PhotoCollectionSeeds().getPhotos()
+        self.sut.shouldPresentPhoto(request: PhotoCollection.PresentPhoto.Request(photoId: PhotoCollectionSeeds().getPhotos().first?.id))
         XCTAssertTrue(self.presenterSpy.presentPhotoDetailViewCalled)
     }
     
     func testShouldDownloadPhoto() {
-        let request = PhotosCollection.DownloadPhoto.Request(displayedPhoto: PhotosCollectionSeeds().getDisplayedPhoto())
+        let request = PhotoCollection.DownloadPhoto.Request(displayedPhoto: PhotoCollectionSeeds().getDisplayedPhoto())
         self.sut.shouldDownloadPhoto(request: request)
         XCTAssertTrue(self.workerSpy.downloadPhotoForCalled)
     }
@@ -364,7 +364,7 @@ class PhotosCollectionInteractorTests: XCTestCase {
     
     func testShouldFetchNextEntityShouldUpdatePhotosModelWhenSuccessDidFetchLastPhotos() {
         self.preconditionsForFetchPhotos()
-        self.workerSpy.photos = [PhotosCollectionSeeds().getPhotos().first!]
+        self.workerSpy.photos = [PhotoCollectionSeeds().getPhotos().first!]
         
         self.sut.shouldFetchNextEntityPhotos()
         XCTAssertNotEqual(self.sut.photos.count, 0)
@@ -406,8 +406,8 @@ class PhotosCollectionInteractorTests: XCTestCase {
     }
     
     private func preconditionsForFetchPhotos() {
-        self.sut.model = PhotosCollectionSeeds().getPhotosCollectionModel()
-        self.sut.model?.geoEntity = PhotosCollectionSeeds().geoEntity(id: 1, name: "", level: .block)
+        self.sut.model = PhotoCollectionSeeds().getPhotosCollectionModel()
+        self.sut.model?.geoEntity = PhotoCollectionSeeds().geoEntity(id: 1, name: "", level: .block)
     }
 }
 

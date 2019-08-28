@@ -9,7 +9,7 @@
 import Foundation
 import STPhotoCore
 
-class PhotoPhotosLocalService: PhotosServiceProtocol {
+class PhotosLocalService: PhotosServiceProtocol {
     let operationQueue = OperationQueue()
         
     func fetchPhotos(photoIds: [String]?, entityFilter: GetPhotosOperationModel.EntityFilter?, completionHandler: @escaping (Result<[STPhoto], OperationError>) -> Void) {

@@ -1,5 +1,5 @@
 //
-//  PhotosCollectionViewController+DisplayLogic.swift
+//  PhotoCollectionViewController+DisplayLogic.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-protocol PhotosCollectionDisplayLogic: class {
-    func displayFetchedPhotos(viewModel: PhotosCollection.FetchPhotos.ViewModel)
-    func displayEntityDetails(viewModel: PhotosCollection.PresentEntityDetails.ViewModel)
+protocol PhotoCollectionDisplayLogic: class {
+    func displayFetchedPhotos(viewModel: PhotoCollection.FetchPhotos.ViewModel)
+    func displayEntityDetails(viewModel: PhotoCollection.PresentEntityDetails.ViewModel)
     
     func displayWillFetchEntityDetails()
     func displayDidFetchEntityDetails()
@@ -21,18 +21,18 @@ protocol PhotosCollectionDisplayLogic: class {
     func displayNoPhotos()
     func displayNoMorePhotos()
     
-    func displayPhotoDetailView(viewModel: PhotosCollection.PresentPhotoDetail.ViewModel)
+    func displayPhotoDetailView(viewModel: PhotoCollection.PresentPhotoDetail.ViewModel)
 }
 
 // MARK: - Display logic (VIP)
 
-extension PhotosCollectionViewController: PhotosCollectionDisplayLogic {
-    func displayEntityDetails(viewModel: PhotosCollection.PresentEntityDetails.ViewModel) {
+extension PhotoCollectionViewController: PhotoCollectionDisplayLogic {
+    func displayEntityDetails(viewModel: PhotoCollection.PresentEntityDetails.ViewModel) {
         let entityViewModel = EntityViewModel(title: viewModel.title, imageName: viewModel.imageName)
         self.entityView?.model = entityViewModel
     }
     
-    func displayFetchedPhotos(viewModel: PhotosCollection.FetchPhotos.ViewModel) {
+    func displayFetchedPhotos(viewModel: PhotoCollection.FetchPhotos.ViewModel) {
         self.insertDisplayedPhotos(displayedPhotos: viewModel.displayedPhotos)
     }
     
@@ -84,7 +84,7 @@ extension PhotosCollectionViewController: PhotosCollectionDisplayLogic {
         }
     }
     
-    func displayPhotoDetailView(viewModel: PhotosCollection.PresentPhotoDetail.ViewModel) {
+    func displayPhotoDetailView(viewModel: PhotoCollection.PresentPhotoDetail.ViewModel) {
         self.delegate?.photoCollectionViewController(self, navigateToPhotoDetailsFor: viewModel.photo.id)
     }
 }

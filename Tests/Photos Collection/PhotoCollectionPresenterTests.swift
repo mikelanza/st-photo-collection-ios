@@ -1,5 +1,5 @@
 //
-//  PhotosCollectionPresenterTests.swift
+//  PhotoCollectionPresenterTests.swift
 //  StreetographyTests
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -10,13 +10,13 @@
 import STPhotoCore
 import XCTest
 
-class PhotosCollectionPresenterTests: XCTestCase {
-    var sut: PhotosCollectionPresenter!
-    var displayerSpy: PhotosCollectionDisplayLogicSpy!
+class PhotoCollectionPresenterTests: XCTestCase {
+    var sut: PhotoCollectionPresenter!
+    var displayerSpy: PhotoCollectionDisplayLogicSpy!
     
     override func setUp() {
         super.setUp()
-        self.setupPhotosCollectionPresenter()
+        self.setupPhotoCollectionPresenter()
     }
     
     override func tearDown() {
@@ -25,22 +25,22 @@ class PhotosCollectionPresenterTests: XCTestCase {
     
     // MARK: - Test setup
     
-    func setupPhotosCollectionPresenter() {
-        self.sut = PhotosCollectionPresenter()
+    func setupPhotoCollectionPresenter() {
+        self.sut = PhotoCollectionPresenter()
         
-        self.displayerSpy = PhotosCollectionDisplayLogicSpy()
+        self.displayerSpy = PhotoCollectionDisplayLogicSpy()
         self.sut.displayer = self.displayerSpy
     }
     
     // MARK: - Tests
     
-    func testPresentFetchedPhotos(response: PhotosCollection.FetchPhotos.Response) {
-        self.sut.presentFetchedPhotos(response: PhotosCollection.FetchPhotos.Response(photos: [], photoSize: CGSize()))
+    func testPresentFetchedPhotos(response: PhotoCollection.FetchPhotos.Response) {
+        self.sut.presentFetchedPhotos(response: PhotoCollection.FetchPhotos.Response(photos: [], photoSize: CGSize()))
         XCTAssertTrue(self.displayerSpy.displayFetchedPhotosCalled)
     }
     
-    func testPresentEntityDetails(response: PhotosCollection.PresentEntityDetails.Response) {
-        self.sut.presentEntityDetails(response: PhotosCollection.PresentEntityDetails.Response(name: "", level: EntityLevel.block))
+    func testPresentEntityDetails(response: PhotoCollection.PresentEntityDetails.Response) {
+        self.sut.presentEntityDetails(response: PhotoCollection.PresentEntityDetails.Response(name: "", level: EntityLevel.block))
         XCTAssertTrue(self.displayerSpy.displayWillFetchEntityDetailsCalled)
     }
     
@@ -74,8 +74,8 @@ class PhotosCollectionPresenterTests: XCTestCase {
         XCTAssertTrue(self.displayerSpy.displayNoMorePhotosCalled)
     }
     
-    func testPresentPhotoDetailView(response: PhotosCollection.PresentPhotoDetail.Response) {
-        self.sut.presentPhotoDetailView(response: PhotosCollection.PresentPhotoDetail.Response(photo: STPhoto(id: "")))
+    func testPresentPhotoDetailView(response: PhotoCollection.PresentPhotoDetail.Response) {
+        self.sut.presentPhotoDetailView(response: PhotoCollection.PresentPhotoDetail.Response(photo: STPhoto(id: "")))
         XCTAssertTrue(self.displayerSpy.displayPhotoDetailViewCalled)
     }
 }

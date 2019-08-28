@@ -1,5 +1,5 @@
 //
-//  PhotosCollectionWorkerTests.swift
+//  PhotoCollectionWorkerTests.swift
 //  StreetographyTests
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -9,12 +9,12 @@
 @testable import STPhotoCollection
 import XCTest
 
-class PhotosCollectionWorkerTests: XCTestCase {
-    var sut: PhotosCollectionWorker!
+class PhotoCollectionWorkerTests: XCTestCase {
+    var sut: PhotoCollectionWorker!
     
     override func setUp() {
         super.setUp()
-        self.setupPhotosCollectionWorker()
+        self.setupPhotoCollectionWorker()
     }
     
     override func tearDown() {
@@ -23,8 +23,8 @@ class PhotosCollectionWorkerTests: XCTestCase {
     
     // MARK: - Test setup
     
-    func setupPhotosCollectionWorker() {
-        self.sut = PhotosCollectionWorker(delegate: nil)
+    func setupPhotoCollectionWorker() {
+        self.sut = PhotoCollectionWorker(delegate: nil)
     }
     
     // MARK: - Tests
