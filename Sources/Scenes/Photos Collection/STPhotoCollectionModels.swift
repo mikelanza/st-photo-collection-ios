@@ -23,7 +23,7 @@ public enum STPhotoCollection {
         let filterModel: FilterModel
         var geoEntity: GeoEntity?
         
-        init(entityModel: EntityModel, filterModel: FilterModel) {
+        public init(entityModel: EntityModel, filterModel: FilterModel) {
             self.entityModel = entityModel
             self.filterModel = filterModel
         }
@@ -32,11 +32,21 @@ public enum STPhotoCollection {
     public struct EntityModel {
         var location: STLocation
         var level: EntityLevel
+        
+        public init(location: STLocation, level: EntityLevel) {
+            self.location = location
+            self.level = level
+        }
     }
     
     public struct FilterModel {
         let userId: String?
         let collectionId: String?
+        
+        public init(userId: String?, collectionId: String?) {
+            self.userId = userId
+            self.collectionId = collectionId
+        }
     }
     
     struct PaginationModel {
