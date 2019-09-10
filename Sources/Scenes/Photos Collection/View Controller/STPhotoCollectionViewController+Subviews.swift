@@ -85,7 +85,7 @@ extension STPhotoCollectionViewController {
     }
     
     private func setupEntityViewConstraints() {
-        self.entityView?.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        self.entityView?.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         self.entityView?.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         self.entityView?.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         self.entityView?.heightAnchor.constraint(equalToConstant: 44).isActive = true

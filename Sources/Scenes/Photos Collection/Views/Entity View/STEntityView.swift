@@ -46,7 +46,7 @@ extension STEntityView {
     private func updateImage() {
         DispatchQueue.main.async {
             if let imageName = self.model.imageName {
-                self.imageView?.image = UIImage(named: imageName)
+                self.imageView?.image = UIImage(named: imageName, in: Bundle.module, compatibleWith: nil)
             }
         }
     }
