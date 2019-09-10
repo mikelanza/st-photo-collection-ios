@@ -1,5 +1,5 @@
 //
-//  NoMorePhotosFooterView.swift
+//  STNoMorePhotosFooterView.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Dimitri Strauneanu on 09/08/2017.
@@ -9,7 +9,7 @@
 import UIKit
 import STPhotoCore
 
-class NoMorePhotosFooterView: UICollectionReusableView, DefaultReuseIdentifier {
+class STNoMorePhotosFooterView: UICollectionReusableView, DefaultReuseIdentifier {
     private weak var imageView: UIImageView!
     private weak var titleLabel: UILabel!
     
@@ -30,7 +30,7 @@ class NoMorePhotosFooterView: UICollectionReusableView, DefaultReuseIdentifier {
 
 // MARK: - Setup subviews
 
-extension NoMorePhotosFooterView {
+extension STNoMorePhotosFooterView {
     private func setupSubviews() {
         self.setupImageView()
         self.setupTitleLabel()
@@ -63,7 +63,7 @@ extension NoMorePhotosFooterView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14.0)
         label.textColor = UIColor(red: 185/255, green: 190/255, blue: 204/255, alpha: 1.0)
-        label.text = PhotoCollectionViewLocalization.sharedInstance.noMorePhotosTitle
+        label.text = STPhotoCollectionViewLocalization.sharedInstance.noMorePhotosTitle
         self.addSubview(label)
         self.titleLabel = label
     }

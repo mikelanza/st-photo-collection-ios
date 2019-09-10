@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionPresenter.swift
+//  STPhotoCollectionPresenter.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Dimitri Strauneanu on 08/08/2017.
@@ -13,9 +13,9 @@
 import UIKit
 import STPhotoCore
 
-protocol PhotoCollectionPresentationLogic {
-    func presentFetchedPhotos(response: PhotoCollection.FetchPhotos.Response)
-    func presentEntityDetails(response: PhotoCollection.PresentEntityDetails.Response)
+protocol STPhotoCollectionPresentationLogic {
+    func presentFetchedPhotos(response: STPhotoCollection.FetchPhotos.Response)
+    func presentEntityDetails(response: STPhotoCollection.PresentEntityDetails.Response)
     
     func presentWillFetchEntityDetails()
     func presentDidFetchEntityDetails()
@@ -26,16 +26,16 @@ protocol PhotoCollectionPresentationLogic {
     func presentNoPhotos()
     func presentNoMorePhotos()
     
-    func presentPhotoDetailView(response: PhotoCollection.PresentPhotoDetail.Response)
+    func presentPhotoDetailView(response: STPhotoCollection.PresentPhotoDetail.Response)
 }
 
-class PhotoCollectionPresenter: PhotoCollectionPresentationLogic {
-    weak var displayer: PhotoCollectionDisplayLogic?
+class STPhotoCollectionPresenter: STPhotoCollectionPresentationLogic {
+    weak var displayer: STPhotoCollectionDisplayLogic?
     
-    func presentEntityDetails(response: PhotoCollection.PresentEntityDetails.Response) {
+    func presentEntityDetails(response: STPhotoCollection.PresentEntityDetails.Response) {
         let title: String? = response.name
         let imageName: String? = self.imageNameForEntityLevel(level: response.level)
-        let viewModel = PhotoCollection.PresentEntityDetails.ViewModel(title: title, imageName: imageName)
+        let viewModel = STPhotoCollection.PresentEntityDetails.ViewModel(title: title, imageName: imageName)
         self.displayer?.displayEntityDetails(viewModel: viewModel)
     }
     
@@ -55,14 +55,14 @@ class PhotoCollectionPresenter: PhotoCollectionPresentationLogic {
         }
     }
     
-    func presentFetchedPhotos(response: PhotoCollection.FetchPhotos.Response) {
+    func presentFetchedPhotos(response: STPhotoCollection.FetchPhotos.Response) {
         let displayedPhotos = self.displayedPhotosFor(photos: response.photos, size: response.photoSize)
-        let viewModel = PhotoCollection.FetchPhotos.ViewModel(displayedPhotos: displayedPhotos)
+        let viewModel = STPhotoCollection.FetchPhotos.ViewModel(displayedPhotos: displayedPhotos)
         self.displayer?.displayFetchedPhotos(viewModel: viewModel)
     }
     
-    private func displayedPhotosFor(photos: [STPhoto], size: CGSize) -> [PhotoCollection.DisplayedPhoto] {
-        var displayedPhotos: [PhotoCollection.DisplayedPhoto] = []
+    private func displayedPhotosFor(photos: [STPhoto], size: CGSize) -> [STPhotoCollection.DisplayedPhoto] {
+        var displayedPhotos: [STPhotoCollection.DisplayedPhoto] = []
         for i in 0..<photos.count {
             var itemSize = size
             if i == 0 {
@@ -74,10 +74,10 @@ class PhotoCollectionPresenter: PhotoCollectionPresentationLogic {
         return displayedPhotos
     }
     
-    private func displayedPhotoFor(photo: STPhoto, size: CGSize) -> PhotoCollection.DisplayedPhoto {
+    private func displayedPhotoFor(photo: STPhoto, size: CGSize) -> STPhotoCollection.DisplayedPhoto {
         let imageUrl: String? = photo.imageUrl
         let backgroundImageColor = UIColor(hexString: photo.dominantColor)
-        let displayedPhoto = PhotoCollection.DisplayedPhoto(id: photo.id)
+        let displayedPhoto = STPhotoCollection.DisplayedPhoto(id: photo.id)
         displayedPhoto.imageUrl = imageUrl
         displayedPhoto.backgroundImageColor = backgroundImageColor
         return displayedPhoto
@@ -107,8 +107,8 @@ class PhotoCollectionPresenter: PhotoCollectionPresentationLogic {
         self.displayer?.displayNoMorePhotos()
     }
     
-    func presentPhotoDetailView(response: PhotoCollection.PresentPhotoDetail.Response) {
-        let viewModel = PhotoCollection.PresentPhotoDetail.ViewModel(photo: response.photo)
+    func presentPhotoDetailView(response: STPhotoCollection.PresentPhotoDetail.Response) {
+        let viewModel = STPhotoCollection.PresentPhotoDetail.ViewModel(photo: response.photo)
         self.displayer?.displayPhotoDetailView(viewModel: viewModel)
     }
 }

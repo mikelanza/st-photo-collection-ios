@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionWorker.swift
+//  STPhotoCollectionWorker.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Dimitri Strauneanu on 08/08/2017.
@@ -13,25 +13,25 @@
 import UIKit
 import STPhotoCore
 
-protocol PhotoCollectionWorkerDelegate: class {
+protocol STPhotoCollectionWorkerDelegate: class {
     func successDidGetGeoEntity(geoEntity: GeoEntity?)
     func failureDidGetGeoEntity(error: OperationError)
     
-    func successDidFetchPhotoImage(displayedPhoto: PhotoCollection.DisplayedPhoto?, image: UIImage?)
-    func failureDidFetchPhotoImage(displayedPhoto: PhotoCollection.DisplayedPhoto?, error: OperationError)
+    func successDidFetchPhotoImage(displayedPhoto: STPhotoCollection.DisplayedPhoto?, image: UIImage?)
+    func failureDidFetchPhotoImage(displayedPhoto: STPhotoCollection.DisplayedPhoto?, error: OperationError)
     
     func didFetchPhotos(photos: [STPhoto])
 }
 
-class PhotoCollectionWorker {
+class STPhotoCollectionWorker {
     
-    weak var delegate: PhotoCollectionWorkerDelegate?
+    weak var delegate: STPhotoCollectionWorkerDelegate?
     
     var photosService: PhotosServiceProtocol = ServiceConfigurator.shared.photosService()
     var locationEntitiesService: LocationEntitiesServiceProtocol = ServiceConfigurator.shared.locationEntitiesService()
     var imageService: ImageServiceProtocol = ServiceConfigurator.shared.imageService()
     
-    init(delegate: PhotoCollectionWorkerDelegate?) {
+    init(delegate: STPhotoCollectionWorkerDelegate?) {
         self.delegate = delegate
     }
     
@@ -60,7 +60,7 @@ class PhotoCollectionWorker {
         })
     }
     
-    func downloadPhotoFor(displayedPhoto: PhotoCollection.DisplayedPhoto?) {
+    func downloadPhotoFor(displayedPhoto: STPhotoCollection.DisplayedPhoto?) {
         self.imageService.fetchImage(url: displayedPhoto?.imageUrl) { result in
             switch result {
             case .success(let image): self.delegate?.successDidFetchPhotoImage(displayedPhoto: displayedPhoto, image: image); break
@@ -72,12 +72,12 @@ class PhotoCollectionWorker {
 
 // MARK: - Models
 
-extension PhotoCollectionWorker {
+extension STPhotoCollectionWorker {
     struct FetchPhotosModel {
         let skip: Int
         let limit: Int
         let geoEntity: GeoEntity
-        let entityModel: PhotoCollection.EntityModel
-        let filterModel: PhotoCollection.FilterModel
+        let entityModel: STPhotoCollection.EntityModel
+        let filterModel: STPhotoCollection.FilterModel
     }
 }

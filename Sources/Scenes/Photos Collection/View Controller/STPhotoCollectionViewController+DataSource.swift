@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionViewController+DataSource.swift
+//  STPhotoCollectionViewController+DataSource.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - UICollectionViewDataSource
 
-extension PhotoCollectionViewController: UICollectionViewDataSource {
+extension STPhotoCollectionViewController: UICollectionViewDataSource {
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.sections.count
     }
@@ -42,16 +42,16 @@ extension PhotoCollectionViewController: UICollectionViewDataSource {
         }
     }
     
-    private func loadingFooterReusableView(kind: String, indexPath: IndexPath) -> LoadingCollectionReusableView {
-        return self.collectionView?.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: LoadingCollectionReusableView.defaultReuseIdentifier, for: indexPath) as? LoadingCollectionReusableView ?? LoadingCollectionReusableView(frame: .zero)
+    private func loadingFooterReusableView(kind: String, indexPath: IndexPath) -> STLoadingCollectionReusableView {
+        return self.collectionView?.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: STLoadingCollectionReusableView.defaultReuseIdentifier, for: indexPath) as? STLoadingCollectionReusableView ?? STLoadingCollectionReusableView(frame: .zero)
     }
     
-    private func noPhotosCollectionFooterView(kind: String, indexPath: IndexPath) -> NoPhotosCollectionFooterView {
-        return self.collectionView?.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NoPhotosCollectionFooterView.defaultReuseIdentifier, for: indexPath) as? NoPhotosCollectionFooterView ?? NoPhotosCollectionFooterView(frame: .zero)
+    private func noPhotosCollectionFooterView(kind: String, indexPath: IndexPath) -> STNoPhotosCollectionFooterView {
+        return self.collectionView?.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: STNoPhotosCollectionFooterView.defaultReuseIdentifier, for: indexPath) as? STNoPhotosCollectionFooterView ?? STNoPhotosCollectionFooterView(frame: .zero)
     }
     
-    private func noMorePhotosFooterView(kind: String, indexPath: IndexPath) -> NoMorePhotosFooterView {
-        return self.collectionView?.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NoMorePhotosFooterView.defaultReuseIdentifier, for: indexPath) as? NoMorePhotosFooterView ?? NoMorePhotosFooterView(frame: .zero)
+    private func noMorePhotosFooterView(kind: String, indexPath: IndexPath) -> STNoMorePhotosFooterView {
+        return self.collectionView?.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: STNoMorePhotosFooterView.defaultReuseIdentifier, for: indexPath) as? STNoMorePhotosFooterView ?? STNoMorePhotosFooterView(frame: .zero)
     }
     
     private func reusableCollectionFooterView(kind: String, indexPath: IndexPath) -> UICollectionReusableView {
@@ -61,10 +61,10 @@ extension PhotoCollectionViewController: UICollectionViewDataSource {
 
 // MARK: - Photo collection view cell
 
-extension PhotoCollectionViewController: PhotoCollectionViewCellDelegate {
-    private func photoCollectionViewCellForIndexPath(indexPath: IndexPath) -> PhotoCollectionViewCell {
+extension STPhotoCollectionViewController: STPhotoCollectionViewCellDelegate {
+    private func photoCollectionViewCellForIndexPath(indexPath: IndexPath) -> STPhotoCollectionViewCell {
         let cell = self.reusablePhotoCollectionViewCellForIndexPath(indexPath: indexPath)
-        let displayedPhoto = self.sections[indexPath.section].items[indexPath.item] as? PhotoCollection.DisplayedPhoto
+        let displayedPhoto = self.sections[indexPath.section].items[indexPath.item] as? STPhotoCollection.DisplayedPhoto
         cell.photoId = displayedPhoto?.id
         cell.delegate = self
         cell.setImage(image: nil)
@@ -75,29 +75,29 @@ extension PhotoCollectionViewController: PhotoCollectionViewCellDelegate {
         return cell
     }
     
-    private func reusablePhotoCollectionViewCellForIndexPath(indexPath: IndexPath) -> PhotoCollectionViewCell {
-        return self.collectionView?.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.defaultReuseIdentifier, for: indexPath) as? PhotoCollectionViewCell ?? PhotoCollectionViewCell()
+    private func reusablePhotoCollectionViewCellForIndexPath(indexPath: IndexPath) -> STPhotoCollectionViewCell {
+        return self.collectionView?.dequeueReusableCell(withReuseIdentifier: STPhotoCollectionViewCell.defaultReuseIdentifier, for: indexPath) as? STPhotoCollectionViewCell ?? STPhotoCollectionViewCell()
     }
     
-    func photoCollectionViewCell(cell: PhotoCollectionViewCell?, didSelectContentView view: UIView?, photoId: String?) {
-        let request = PhotoCollection.PresentPhoto.Request(photoId: photoId)
+    func photoCollectionViewCell(cell: STPhotoCollectionViewCell?, didSelectContentView view: UIView?, photoId: String?) {
+        let request = STPhotoCollection.PresentPhoto.Request(photoId: photoId)
         self.interactor?.shouldPresentPhoto(request: request)
     }
 }
 
 // MARK: - UICollectionViewDelegate
 
-extension PhotoCollectionViewController: UICollectionViewDelegate {
+extension STPhotoCollectionViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let displayedPhoto = self.displayedPhotoFor(indexPath: indexPath)
-        let request = PhotoCollection.PresentPhoto.Request(photoId: displayedPhoto?.id)
+        let request = STPhotoCollection.PresentPhoto.Request(photoId: displayedPhoto?.id)
         self.interactor?.shouldPresentPhoto(request: request)
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+extension STPhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         var height: CGFloat = 0
         if self.sections[section].isLoading { height = 50 }
@@ -176,8 +176,8 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - Auxiliary
 
-extension PhotoCollectionViewController {
-    func insertDisplayedPhotos(displayedPhotos: [PhotoCollection.DisplayedPhoto]) {
+extension STPhotoCollectionViewController {
+    func insertDisplayedPhotos(displayedPhotos: [STPhotoCollection.DisplayedPhoto]) {
         DispatchQueue.main.async {
             self.collectionView?.collectionViewLayout.invalidateLayout()
             self.collectionView?.performBatchUpdates({
@@ -230,11 +230,11 @@ extension PhotoCollectionViewController {
         return self.sections[self.photosSectionIndex].items
             .enumerated()
             .reversed()
-            .first(where: { ($0.element as? PhotoCollection.DisplayedPhoto)?.id == photoId })?.offset
+            .first(where: { ($0.element as? STPhotoCollection.DisplayedPhoto)?.id == photoId })?.offset
     }
     
-    private func displayedPhotoFor(indexPath: IndexPath) -> PhotoCollection.DisplayedPhoto? {
-        return self.sections[indexPath.section].items[indexPath.item] as? PhotoCollection.DisplayedPhoto
+    private func displayedPhotoFor(indexPath: IndexPath) -> STPhotoCollection.DisplayedPhoto? {
+        return self.sections[indexPath.section].items[indexPath.item] as? STPhotoCollection.DisplayedPhoto
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionRoutingLogicSpy.swift
+//  STPhotoCollectionRoutingLogicSpy.swift
 //  StreetographyTests
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -9,8 +9,8 @@
 @testable import STPhotoCollection
 import STPhotoCore
 
-class PhotoCollectionRoutingLogicSpy: NSObject, PhotoCollectionRoutingLogic, PhotoCollectionDataPassing {
-    var dataStore: PhotoCollectionDataStore?
+class STPhotoCollectionRoutingLogicSpy: NSObject, STPhotoCollectionRoutingLogic, STPhotoCollectionDataPassing {
+    var dataStore: STPhotoCollectionDataStore?
     
     var removeViewControllerCalled: Bool = false
     

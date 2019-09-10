@@ -1,5 +1,5 @@
 //
-//  EntityViewModel.swift
+//  STEntityViewModel.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Dimitri Strauneanu on 08/08/2017.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct EntityViewModel {
+struct STEntityViewModel {
     var title: String?
     var imageName: String?
     var isLoading: Bool = false

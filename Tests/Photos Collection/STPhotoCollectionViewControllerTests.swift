@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionViewControllerTests.swift
+//  STPhotoCollectionViewControllerTests.swift
 //  StreetographyTests
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -10,12 +10,12 @@
 import XCTest
 import STPhotoCore
 
-class PhotoCollectionViewControllerTests: XCTestCase {
-    var sut: PhotoCollectionViewController!
-    var interactorSpy: PhotoCollectionBusinessLogicSpy!
-    var routerSpy: PhotoCollectionRoutingLogicSpy!
+class STPhotoCollectionViewControllerTests: XCTestCase {
+    var sut: STPhotoCollectionViewController!
+    var interactorSpy: STPhotoCollectionBusinessLogicSpy!
+    var routerSpy: STPhotoCollectionRoutingLogicSpy!
     
-    var delegateSpy: PhotoCollectionViewControllerDelegateSpy!
+    var delegateSpy: STPhotoCollectionViewControllerDelegateSpy!
     var window: UIWindow!
     
     override func setUp() {
@@ -32,16 +32,16 @@ class PhotoCollectionViewControllerTests: XCTestCase {
     // MARK: - Test setup
     
     func setupPhotoCollectionViewController() {
-        self.sut = PhotoCollectionViewController(model: PhotoCollectionSeeds().getPhotosCollectionModel())
+        self.sut = STPhotoCollectionViewController(model: PhotoCollectionSeeds().getPhotosCollectionModel())
         let _ = UINavigationController(rootViewController: self.sut)
         
-        self.interactorSpy = PhotoCollectionBusinessLogicSpy()
+        self.interactorSpy = STPhotoCollectionBusinessLogicSpy()
         self.sut.interactor = self.interactorSpy
         
-        self.routerSpy = PhotoCollectionRoutingLogicSpy()
+        self.routerSpy = STPhotoCollectionRoutingLogicSpy()
         self.sut.router = self.routerSpy
         
-        self.delegateSpy = PhotoCollectionViewControllerDelegateSpy()
+        self.delegateSpy = STPhotoCollectionViewControllerDelegateSpy()
         self.sut.delegate = self.delegateSpy
     }
     
@@ -141,7 +141,7 @@ class PhotoCollectionViewControllerTests: XCTestCase {
     func testDisplayEntityDetails() {
         self.loadView()
         
-        let viewModel = PhotoCollection.PresentEntityDetails.ViewModel(title: "title", imageName: "block")
+        let viewModel = STPhotoCollection.PresentEntityDetails.ViewModel(title: "title", imageName: "block")
         self.sut.displayEntityDetails(viewModel: viewModel)
         self.waitForMainQueue()
         XCTAssertEqual(self.sut.entityView.model.title, viewModel.title)
@@ -194,7 +194,7 @@ class PhotoCollectionViewControllerTests: XCTestCase {
 
     func testDisplayPhotoDetailsViewShouldAskTheDelegateToSendNAvigateToPhotoDetailsForPhotoId() {
         self.loadView()
-        self.sut.displayPhotoDetailView(viewModel: PhotoCollection.PresentPhotoDetail.ViewModel(photo: STPhoto(id: "")))
+        self.sut.displayPhotoDetailView(viewModel: STPhotoCollection.PresentPhotoDetail.ViewModel(photo: STPhoto(id: "")))
         XCTAssertTrue(self.delegateSpy.photoCollectionViewControllerNavigateToPhotoDetailsForPhotoIdCalled)
     }
     
@@ -202,7 +202,7 @@ class PhotoCollectionViewControllerTests: XCTestCase {
         self.loadView()
     
         let displayedPhotos = PhotoCollectionSeeds().getDisplayedPhotos()
-        self.sut.displayFetchedPhotos(viewModel: PhotoCollection.FetchPhotos.ViewModel(displayedPhotos: displayedPhotos))
+        self.sut.displayFetchedPhotos(viewModel: STPhotoCollection.FetchPhotos.ViewModel(displayedPhotos: displayedPhotos))
         self.waitForMainQueue()
         
         XCTAssertEqual(self.sut.sections[self.sut.photosSectionIndex].items.count, displayedPhotos.count)
@@ -213,10 +213,10 @@ class PhotoCollectionViewControllerTests: XCTestCase {
 
         let collectionViewSpy = CollectionViewSpy(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         collectionViewSpy.dataSource = self.sut
-        collectionViewSpy.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.defaultReuseIdentifier)
+        collectionViewSpy.register(STPhotoCollectionViewCell.self, forCellWithReuseIdentifier: STPhotoCollectionViewCell.defaultReuseIdentifier)
         self.sut.collectionView = collectionViewSpy
 
-        self.sut.displayFetchedPhotos(viewModel: PhotoCollection.FetchPhotos.ViewModel(displayedPhotos: PhotoCollectionSeeds().getDisplayedPhotos()))
+        self.sut.displayFetchedPhotos(viewModel: STPhotoCollection.FetchPhotos.ViewModel(displayedPhotos: PhotoCollectionSeeds().getDisplayedPhotos()))
         self.waitForMainQueue()
 
         XCTAssertTrue(collectionViewSpy.insertItemsCalled)

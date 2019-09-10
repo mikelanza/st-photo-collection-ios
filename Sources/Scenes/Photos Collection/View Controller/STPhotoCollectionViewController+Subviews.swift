@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionViewController+Subviews.swift
+//  STPhotoCollectionViewController+Subviews.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - Setup subviews
 
-extension PhotoCollectionViewController {
+extension STPhotoCollectionViewController {
     func setupSubviews() {
         self.setupNavigationBar()
         self.setupNavigationBarBackButton()
@@ -33,7 +33,7 @@ extension PhotoCollectionViewController {
     }
     
     private func setupNavigationBarBackButton() {
-        let button = UIBarButtonItem(image: STPhotoCollectionStyle.shared.backButtonModel.image, style: .plain, target: self, action: #selector(PhotoCollectionViewController.didTapBackButton))
+        let button = UIBarButtonItem(image: STPhotoCollectionStyle.shared.backButtonModel.image, style: .plain, target: self, action: #selector(STPhotoCollectionViewController.didTapBackButton))
         self.navigationItem.leftBarButtonItem = button
     }
     
@@ -47,8 +47,8 @@ extension PhotoCollectionViewController {
     }
     
     private func setupEntityView() {
-        let viewModel = EntityViewModel(title: nil, imageName: nil)
-        let view = EntityView(viewModel: viewModel)
+        let viewModel = STEntityViewModel(title: nil, imageName: nil)
+        let view = STEntityView(viewModel: viewModel)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = STPhotoCollectionStyle.shared.entityViewModel.backgroundColor
         self.view.addSubview(view)
@@ -62,14 +62,14 @@ extension PhotoCollectionViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.defaultReuseIdentifier)
+        collectionView.register(STPhotoCollectionViewCell.self, forCellWithReuseIdentifier: STPhotoCollectionViewCell.defaultReuseIdentifier)
         
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "UICollectionReusableView")
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "UICollectionReusableView")
         
-        collectionView.register(LoadingCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: LoadingCollectionReusableView.defaultReuseIdentifier)
-        collectionView.register(NoPhotosCollectionFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NoPhotosCollectionFooterView.defaultReuseIdentifier)
-        collectionView.register(NoMorePhotosFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NoMorePhotosFooterView.defaultReuseIdentifier)
+        collectionView.register(STLoadingCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: STLoadingCollectionReusableView.defaultReuseIdentifier)
+        collectionView.register(STNoPhotosCollectionFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: STNoPhotosCollectionFooterView.defaultReuseIdentifier)
+        collectionView.register(STNoMorePhotosFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: STNoMorePhotosFooterView.defaultReuseIdentifier)
         
         self.view.addSubview(collectionView)
         self.collectionView = collectionView
@@ -78,7 +78,7 @@ extension PhotoCollectionViewController {
 
 // MARK: - Setup subviews constraints
 
-extension PhotoCollectionViewController {
+extension STPhotoCollectionViewController {
     func setupSubviewsConstraints() {
         self.setupEntityViewConstraints()
         self.setupCollectionViewConstraints()

@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionBusinessLogicSpy.swift
+//  STPhotoCollectionBusinessLogicSpy.swift
 //  StreetographyTests
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -9,7 +9,7 @@
 @testable import STPhotoCollection
 import UIKit
 
-class PhotoCollectionBusinessLogicSpy: PhotoCollectionBusinessLogic {
+class STPhotoCollectionBusinessLogicSpy: STPhotoCollectionBusinessLogic {
     var shouldFetchEntityDetailsCalled: Bool = false
     var shouldFetchEntityPhotosCalled: Bool = false
     var shouldFetchNextEntityPhotosCalled: Bool = false
@@ -33,15 +33,15 @@ class PhotoCollectionBusinessLogicSpy: PhotoCollectionBusinessLogic {
         self.shouldFetchNextEntityPhotosCalled = true
     }
     
-    func shouldPresentPhoto(request: PhotoCollection.PresentPhoto.Request) {
+    func shouldPresentPhoto(request: STPhotoCollection.PresentPhoto.Request) {
         self.shouldPresentPhotoCalled = true
     }
     
-    func shouldDownloadPhoto(request: PhotoCollection.DownloadPhoto.Request) {
+    func shouldDownloadPhoto(request: STPhotoCollection.DownloadPhoto.Request) {
         self.shouldDownloadPhotoCalled = true
     }
     
-    func setModel(model: PhotoCollection.Model) {
+    func setModel(model: STPhotoCollection.Model) {
         self.setModelCalled = true
     }
     

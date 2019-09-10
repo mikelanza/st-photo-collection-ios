@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionPresentationLogicSpy.swift
+//  STPhotoCollectionPresentationLogicSpy.swift
 //  StreetographyTests
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -8,7 +8,7 @@
 
 @testable import STPhotoCollection
 
-class PhotoCollectionPresentationLogicSpy: PhotoCollectionPresentationLogic {
+class STPhotoCollectionPresentationLogicSpy: STPhotoCollectionPresentationLogic {
     var presentFetchedPhotosCalled: Bool = false
     var presentEntityDetailsCalled: Bool = false
     var presentWillFetchEntityDetailsCalled: Bool = false
@@ -21,11 +21,11 @@ class PhotoCollectionPresentationLogicSpy: PhotoCollectionPresentationLogic {
     var presentLoginViewCalled: Bool = false
     var presentDeletePhotoCalled: Bool = false
     
-    func presentFetchedPhotos(response: PhotoCollection.FetchPhotos.Response) {
+    func presentFetchedPhotos(response: STPhotoCollection.FetchPhotos.Response) {
         self.presentFetchedPhotosCalled = true
     }
     
-    func presentEntityDetails(response: PhotoCollection.PresentEntityDetails.Response) {
+    func presentEntityDetails(response: STPhotoCollection.PresentEntityDetails.Response) {
         self.presentEntityDetailsCalled = true
     }
     
@@ -53,7 +53,7 @@ class PhotoCollectionPresentationLogicSpy: PhotoCollectionPresentationLogic {
         self.presentNoMorePhotosCalled = true
     }
     
-    func presentPhotoDetailView(response: PhotoCollection.PresentPhotoDetail.Response) {
+    func presentPhotoDetailView(response: STPhotoCollection.PresentPhotoDetail.Response) {
         self.presentPhotoDetailViewCalled = true
     }
     

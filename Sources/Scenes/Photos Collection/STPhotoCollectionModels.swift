@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionModels.swift
+//  STPhotoCollectionModels.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Dimitri Strauneanu on 08/08/2017.
@@ -13,11 +13,11 @@
 import UIKit
 import STPhotoCore
 
-protocol PhotoCollectionInterface: NSObjectProtocol {
+protocol STPhotoCollectionInterface: NSObjectProtocol {
     func setImage(image: UIImage?)
 }
 
-public enum PhotoCollection {
+public enum STPhotoCollection {
     public struct Model {
         let entityModel: EntityModel
         let filterModel: FilterModel
@@ -29,12 +29,12 @@ public enum PhotoCollection {
         }
     }
     
-    struct EntityModel {
+    public struct EntityModel {
         var location: STLocation
         var level: EntityLevel
     }
     
-    struct FilterModel {
+    public struct FilterModel {
         let userId: String?
         let collectionId: String?
     }
@@ -56,7 +56,7 @@ public enum PhotoCollection {
         var imageUrl: String?
         var backgroundImageColor: UIColor?
         
-        weak var interface: PhotoCollectionInterface?
+        weak var interface: STPhotoCollectionInterface?
         
         init(id: String) {
             self.id = id

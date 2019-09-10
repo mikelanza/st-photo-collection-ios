@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionStyle.swift
+//  STPhotoCollectionStyle.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Crasneanu Cristian on 23/08/2019.

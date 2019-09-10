@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionInteractorTests.swift
+//  STPhotoCollectionInteractorTests.swift
 //  StreetographyTests
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -10,10 +10,10 @@
 import XCTest
 import STPhotoCore
 
-class PhotoCollectionInteractorTests: XCTestCase {
-    var sut: PhotoCollectionInteractor!
-    var presenterSpy: PhotoCollectionPresentationLogicSpy!
-    var workerSpy: PhotoCollectionWorkerSpy!
+class STPhotoCollectionInteractorTests: XCTestCase {
+    var sut: STPhotoCollectionInteractor!
+    var presenterSpy: STPhotoCollectionPresentationLogicSpy!
+    var workerSpy: STPhotoCollectionWorkerSpy!
     
     override func setUp() {
         super.setUp()
@@ -27,12 +27,12 @@ class PhotoCollectionInteractorTests: XCTestCase {
     // MARK: - Test setup
     
     func setupPhotoCollectionInteractor() {
-        self.sut = PhotoCollectionInteractor()
+        self.sut = STPhotoCollectionInteractor()
         
-        self.presenterSpy = PhotoCollectionPresentationLogicSpy()
+        self.presenterSpy = STPhotoCollectionPresentationLogicSpy()
         self.sut.presenter = self.presenterSpy
         
-        self.workerSpy = PhotoCollectionWorkerSpy(delegate: self.sut)
+        self.workerSpy = STPhotoCollectionWorkerSpy(delegate: self.sut)
         self.sut.worker = self.workerSpy
     }
     
@@ -288,12 +288,12 @@ class PhotoCollectionInteractorTests: XCTestCase {
     
     func testShouldPresentPhoto() {
         self.sut.photos = PhotoCollectionSeeds().getPhotos()
-        self.sut.shouldPresentPhoto(request: PhotoCollection.PresentPhoto.Request(photoId: PhotoCollectionSeeds().getPhotos().first?.id))
+        self.sut.shouldPresentPhoto(request: STPhotoCollection.PresentPhoto.Request(photoId: PhotoCollectionSeeds().getPhotos().first?.id))
         XCTAssertTrue(self.presenterSpy.presentPhotoDetailViewCalled)
     }
     
     func testShouldDownloadPhoto() {
-        let request = PhotoCollection.DownloadPhoto.Request(displayedPhoto: PhotoCollectionSeeds().getDisplayedPhoto())
+        let request = STPhotoCollection.DownloadPhoto.Request(displayedPhoto: PhotoCollectionSeeds().getDisplayedPhoto())
         self.sut.shouldDownloadPhoto(request: request)
         XCTAssertTrue(self.workerSpy.downloadPhotoForCalled)
     }

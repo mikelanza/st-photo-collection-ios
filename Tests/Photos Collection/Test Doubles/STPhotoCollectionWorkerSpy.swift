@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionWorkerSpy.swift
+//  STPhotoCollectionWorkerSpy.swift
 //  StreetographyTests
 //
 //  Created by Crasneanu Cristian on 31/07/2019.
@@ -9,7 +9,7 @@
 @testable import STPhotoCollection
 import STPhotoCore
 
-class PhotoCollectionWorkerSpy: PhotoCollectionWorker {
+class STPhotoCollectionWorkerSpy: STPhotoCollectionWorker {
     var delay: Double = 0
     
     var fetchGeoEntityCalled: Bool = false
@@ -40,7 +40,7 @@ class PhotoCollectionWorkerSpy: PhotoCollectionWorker {
         }
     }
     
-    override func downloadPhotoFor(displayedPhoto: PhotoCollection.DisplayedPhoto?) {
+    override func downloadPhotoFor(displayedPhoto: STPhotoCollection.DisplayedPhoto?) {
         self.downloadPhotoForCalled = true
     }
     

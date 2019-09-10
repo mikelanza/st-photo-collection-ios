@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionRouter.swift
+//  STPhotoCollectionRouter.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Dimitri Strauneanu on 08/08/2017.
@@ -13,17 +13,17 @@
 import UIKit
 import STPhotoCore
 
-protocol PhotoCollectionRoutingLogic: NSObjectProtocol {
+protocol STPhotoCollectionRoutingLogic: NSObjectProtocol {
     func removeViewController()
 }
 
-protocol PhotoCollectionDataPassing {
-    var dataStore: PhotoCollectionDataStore? { get }
+protocol STPhotoCollectionDataPassing {
+    var dataStore: STPhotoCollectionDataStore? { get }
 }
 
-class PhotoCollectionRouter: NSObject, PhotoCollectionRoutingLogic, PhotoCollectionDataPassing {
-    weak var viewController: PhotoCollectionViewController?
-    var dataStore: PhotoCollectionDataStore?
+class STPhotoCollectionRouter: NSObject, STPhotoCollectionRoutingLogic, STPhotoCollectionDataPassing {
+    weak var viewController: STPhotoCollectionViewController?
+    var dataStore: STPhotoCollectionDataStore?
     
     func removeViewController() {
         if let navigationController = self.viewController?.navigationController {

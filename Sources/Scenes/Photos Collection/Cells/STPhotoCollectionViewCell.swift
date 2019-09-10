@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionViewCell.swift
+//  STPhotoCollectionViewCell.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Dimitri Strauneanu on 08/08/2017.
@@ -9,14 +9,14 @@
 import UIKit
 import STPhotoCore
 
-protocol PhotoCollectionViewCellDelegate: NSObjectProtocol {
-    func photoCollectionViewCell(cell: PhotoCollectionViewCell?, didSelectContentView view: UIView?, photoId: String?)
+protocol STPhotoCollectionViewCellDelegate: NSObjectProtocol {
+    func photoCollectionViewCell(cell: STPhotoCollectionViewCell?, didSelectContentView view: UIView?, photoId: String?)
 }
 
-class PhotoCollectionViewCell: UICollectionViewCell, DefaultReuseIdentifier, PhotoCollectionInterface {
+class STPhotoCollectionViewCell: UICollectionViewCell, DefaultReuseIdentifier, STPhotoCollectionInterface {
     private weak var imageView: UIImageView!
     
-    weak var delegate: PhotoCollectionViewCellDelegate?
+    weak var delegate: STPhotoCollectionViewCellDelegate?
     
     var photoId: String?
     
@@ -39,7 +39,7 @@ class PhotoCollectionViewCell: UICollectionViewCell, DefaultReuseIdentifier, Pho
     }
     
     private func setupContentViewTapGestureRecognizer() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PhotoCollectionViewCell.didTapContentView))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(STPhotoCollectionViewCell.didTapContentView))
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.contentView.addGestureRecognizer(tapGestureRecognizer)
     }
@@ -61,7 +61,7 @@ class PhotoCollectionViewCell: UICollectionViewCell, DefaultReuseIdentifier, Pho
 
 // MARK: - Setup subviews
 
-extension PhotoCollectionViewCell {
+extension STPhotoCollectionViewCell {
     private func setupSubviews() {
         self.setupImageView()
     }

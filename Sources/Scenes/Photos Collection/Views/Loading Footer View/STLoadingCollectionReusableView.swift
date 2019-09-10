@@ -1,5 +1,5 @@
 //
-//  LoadingCollectionReusableView.swift
+//  STLoadingCollectionReusableView.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Dimitri Strauneanu on 08/08/2017.
@@ -9,7 +9,7 @@
 import UIKit
 import STPhotoCore
 
-class LoadingCollectionReusableView: UICollectionReusableView, DefaultReuseIdentifier {
+class STLoadingCollectionReusableView: UICollectionReusableView, DefaultReuseIdentifier {
     
     private weak var activityIndicatorView: UIActivityIndicatorView!
     

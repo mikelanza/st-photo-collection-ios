@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionViewLocalization.swift
+//  STPhotoCollectionViewLocalization.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Dimitri Strauneanu on 09/08/2017.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-class PhotoCollectionViewLocalization {
-    static let sharedInstance = PhotoCollectionViewLocalization()
+class STPhotoCollectionViewLocalization {
+    static let sharedInstance = STPhotoCollectionViewLocalization()
     
     private init() {
     }

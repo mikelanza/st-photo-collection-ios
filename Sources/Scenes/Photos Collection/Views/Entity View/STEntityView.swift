@@ -1,5 +1,5 @@
 //
-//  EntityView.swift
+//  STEntityView.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Dimitri Strauneanu on 08/08/2017.
@@ -9,8 +9,8 @@
 import UIKit
 
 
-class EntityView: UIView {
-    var model: EntityViewModel {
+class STEntityView: UIView {
+    var model: STEntityViewModel {
         didSet {
             self.updateIsLoading()
             self.updateImage()
@@ -22,7 +22,7 @@ class EntityView: UIView {
     private weak var titleLabel: UILabel!
     private weak var activityIndicatorView: UIActivityIndicatorView!
     
-    init(viewModel: EntityViewModel) {
+    init(viewModel: STEntityViewModel) {
         self.model = viewModel
         super.init(frame: .zero)
         self.setupSubviews()
@@ -36,7 +36,7 @@ class EntityView: UIView {
 
 // MARK: - Update subviews
 
-extension EntityView {
+extension STEntityView {
     private func updateTitle() {
         DispatchQueue.main.async {
             self.titleLabel?.text = self.model.title
@@ -68,7 +68,7 @@ extension EntityView {
 
 // MARK: - Subviews manipulation
 
-extension EntityView {
+extension STEntityView {
     private func startActivityIndicatorView() {
         self.activityIndicatorView?.startAnimating()
     }
@@ -96,7 +96,7 @@ extension EntityView {
 
 // MARK: - Subviews configuration
 
-extension EntityView {
+extension STEntityView {
     private func setupSubviews() {
         self.setupImageView()
         self.setupTitleLabel()
@@ -144,7 +144,7 @@ extension EntityView {
 
 // MARK: - Subviews constraints configuration
 
-extension EntityView {
+extension STEntityView {
     private func setupSubviewsConstraints() {
         self.setupImageViewConstraints()
         self.setupTitleLabelConstraints()

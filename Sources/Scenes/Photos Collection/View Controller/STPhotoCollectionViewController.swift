@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionViewController.swift
+//  STPhotoCollectionViewController.swift
 //  STPhotoCollection-iOS
 //
 //  Created by Dimitri Strauneanu on 08/08/2017.
@@ -13,17 +13,17 @@
 import UIKit
 import STPhotoCore
 
-public protocol PhotoCollectionViewControllerDelegate: NSObjectProtocol {
-    func photoCollectionViewController(_ viewController: PhotoCollectionViewController?, navigateToPhotoDetailsFor photoId: String?)
+public protocol STPhotoCollectionViewControllerDelegate: NSObjectProtocol {
+    func photoCollectionViewController(_ viewController: STPhotoCollectionViewController?, navigateToPhotoDetailsFor photoId: String?)
 }
 
-public class PhotoCollectionViewController: UIViewController {
-    var interactor: PhotoCollectionBusinessLogic?
-    var router: (NSObjectProtocol & PhotoCollectionRoutingLogic & PhotoCollectionDataPassing)?
+public class STPhotoCollectionViewController: UIViewController {
+    var interactor: STPhotoCollectionBusinessLogic?
+    var router: (NSObjectProtocol & STPhotoCollectionRoutingLogic & STPhotoCollectionDataPassing)?
     
-    public weak var delegate: PhotoCollectionViewControllerDelegate?
+    public weak var delegate: STPhotoCollectionViewControllerDelegate?
     
-    weak var entityView: EntityView!
+    weak var entityView: STEntityView!
     weak var collectionView: UICollectionView!
     
     struct Section {
@@ -53,7 +53,7 @@ public class PhotoCollectionViewController: UIViewController {
     
     // MARK: Object lifecycle
     
-    public init(model: PhotoCollection.Model) {
+    public init(model: STPhotoCollection.Model) {
         super.init(nibName: nil, bundle: nil)
         self.setup()
         self.interactor?.setModel(model: model)
@@ -73,9 +73,9 @@ public class PhotoCollectionViewController: UIViewController {
     
     private func setup() {
         let viewController = self
-        let interactor = PhotoCollectionInteractor()
-        let presenter = PhotoCollectionPresenter()
-        let router = PhotoCollectionRouter()
+        let interactor = STPhotoCollectionInteractor()
+        let presenter = STPhotoCollectionPresenter()
+        let router = STPhotoCollectionRouter()
         viewController.interactor = interactor
         viewController.router = router
         interactor.presenter = presenter
@@ -115,20 +115,20 @@ public class PhotoCollectionViewController: UIViewController {
 
 // MARK: - Business logic (VIP)
 
-extension PhotoCollectionViewController {
+extension STPhotoCollectionViewController {
     private func shouldFetchEntityDetails() {
         self.interactor?.shouldFetchEntityDetails()
     }
     
-    func shouldDownloadPhoto(displayedPhoto: PhotoCollection.DisplayedPhoto?) {
-        let request = PhotoCollection.DownloadPhoto.Request(displayedPhoto: displayedPhoto)
+    func shouldDownloadPhoto(displayedPhoto: STPhotoCollection.DisplayedPhoto?) {
+        let request = STPhotoCollection.DownloadPhoto.Request(displayedPhoto: displayedPhoto)
         self.interactor?.shouldDownloadPhoto(request: request)
     }
 }
 
 // MARK: - Scroll view delegate
 
-extension PhotoCollectionViewController {
+extension STPhotoCollectionViewController {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y.rounded(.up)
         let maximumOffset = (scrollView.contentSize.height - scrollView.frame.size.height).rounded(.up)
@@ -140,7 +140,7 @@ extension PhotoCollectionViewController {
 
 // MARK: - Update & manipulate subviews
 
-extension PhotoCollectionViewController {
+extension STPhotoCollectionViewController {
     private func showNavigationBar() {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
@@ -148,7 +148,7 @@ extension PhotoCollectionViewController {
 
 // MARK: - Actions
 
-extension PhotoCollectionViewController {
+extension STPhotoCollectionViewController {
     @objc func didTapBackButton() {
         self.router?.removeViewController()
     }
