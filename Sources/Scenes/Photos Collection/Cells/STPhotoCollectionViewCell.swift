@@ -13,7 +13,12 @@ protocol STPhotoCollectionViewCellDelegate: NSObjectProtocol {
     func photoCollectionViewCell(cell: STPhotoCollectionViewCell?, didSelectContentView view: UIView?, photoId: String?)
 }
 
-class STPhotoCollectionViewCell: UICollectionViewCell, DefaultReuseIdentifier, STPhotoCollectionInterface {
+protocol STPhotoCollectionViewCellInterface: AnyObject {
+    func setImage(image: UIImage?)
+    func setIsLoading(isLoading: Bool)
+}
+
+class STPhotoCollectionViewCell: UICollectionViewCell, DefaultReuseIdentifier {
     private weak var imageView: UIImageView!
     
     weak var delegate: STPhotoCollectionViewCellDelegate?
@@ -48,12 +53,6 @@ class STPhotoCollectionViewCell: UICollectionViewCell, DefaultReuseIdentifier, S
         self.delegate?.photoCollectionViewCell(cell: self, didSelectContentView: self.contentView, photoId: self.photoId)
     }
     
-    func setImage(image: UIImage?) {
-        DispatchQueue.main.async {
-            self.imageView?.image = image
-        }
-    }
-    
     func setImageBackgroundColor(color: UIColor?) {
         self.imageView?.backgroundColor = color ?? UIColor(red: 54/255, green: 62/255, blue: 75/255, alpha: 1)
     }
@@ -84,5 +83,15 @@ extension STPhotoCollectionViewCell {
         self.imageView?.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
         self.imageView?.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
         self.imageView?.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+    }
+}
+
+extension STPhotoCollectionViewCell: STPhotoCollectionViewCellInterface {
+    public func setImage(image: UIImage?) {
+        self.imageView?.image = image
+    }
+    
+    func setIsLoading(isLoading: Bool) {
+        
     }
 }

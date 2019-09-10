@@ -17,10 +17,11 @@ protocol STPhotoCollectionWorkerDelegate: class {
     func successDidGetGeoEntity(geoEntity: GeoEntity?)
     func failureDidGetGeoEntity(error: OperationError)
     
-    func successDidFetchPhotoImage(displayedPhoto: STPhotoCollection.DisplayedPhoto?, image: UIImage?)
-    func failureDidFetchPhotoImage(displayedPhoto: STPhotoCollection.DisplayedPhoto?, error: OperationError)
+    func successDidFetchPhotoImage(displayedPhoto: STPhotoCollection.DisplayedPhoto, image: UIImage?)
+    func failureDidFetchPhotoImage(displayedPhoto: STPhotoCollection.DisplayedPhoto, error: OperationError)
     
     func didFetchPhotos(photos: [STPhoto])
+    func failureDidFetchPhotos(error: OperationError)
 }
 
 class STPhotoCollectionWorker {
@@ -55,13 +56,13 @@ class STPhotoCollectionWorker {
         self.photosService.fetchPhotos(photoIds: nil, entityFilter: entityFilter, completionHandler: { result in
             switch result {
             case .success(let photos): self.delegate?.didFetchPhotos(photos: photos); break
-            case .failure( _): break
+            case .failure(let error): self.delegate?.failureDidFetchPhotos(error: error); break
             }
         })
     }
     
-    func downloadPhotoFor(displayedPhoto: STPhotoCollection.DisplayedPhoto?) {
-        self.imageService.fetchImage(url: displayedPhoto?.imageUrl) { result in
+    func fetchImageFor(displayedPhoto: STPhotoCollection.DisplayedPhoto) {
+        self.imageService.fetchImage(url: displayedPhoto.imageUrl) { result in
             switch result {
             case .success(let image): self.delegate?.successDidFetchPhotoImage(displayedPhoto: displayedPhoto, image: image); break
             case .failure(let error): self.delegate?.failureDidFetchPhotoImage(displayedPhoto: displayedPhoto, error: error); break

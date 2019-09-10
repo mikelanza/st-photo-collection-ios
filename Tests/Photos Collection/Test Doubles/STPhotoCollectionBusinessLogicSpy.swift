@@ -14,7 +14,7 @@ class STPhotoCollectionBusinessLogicSpy: STPhotoCollectionBusinessLogic {
     var shouldFetchEntityPhotosCalled: Bool = false
     var shouldFetchNextEntityPhotosCalled: Bool = false
     var shouldPresentPhotoCalled: Bool = false
-    var shouldDownloadPhotoCalled: Bool = false
+    var shouldFetchImageForPhotoCalled: Bool = false
     var setModelCalled: Bool = false
     var setPhotoItemSizeCalled: Bool = false
     var shouldLoginUserCalled: Bool = false
@@ -37,8 +37,8 @@ class STPhotoCollectionBusinessLogicSpy: STPhotoCollectionBusinessLogic {
         self.shouldPresentPhotoCalled = true
     }
     
-    func shouldDownloadPhoto(request: STPhotoCollection.DownloadPhoto.Request) {
-        self.shouldDownloadPhotoCalled = true
+    func shouldFetchImageForPhoto(request: STPhotoCollection.FetchImage.Request) {
+        self.shouldFetchImageForPhotoCalled = true
     }
     
     func setModel(model: STPhotoCollection.Model) {

@@ -120,9 +120,9 @@ extension STPhotoCollectionViewController {
         self.interactor?.shouldFetchEntityDetails()
     }
     
-    func shouldDownloadPhoto(displayedPhoto: STPhotoCollection.DisplayedPhoto?) {
-        let request = STPhotoCollection.DownloadPhoto.Request(displayedPhoto: displayedPhoto)
-        self.interactor?.shouldDownloadPhoto(request: request)
+    func shouldFetchImageForPhoto(displayedPhoto: STPhotoCollection.DisplayedPhoto) {
+        let request = STPhotoCollection.FetchImage.Request(displayedPhoto: displayedPhoto)
+        self.interactor?.shouldFetchImageForPhoto(request: request)
     }
 }
 

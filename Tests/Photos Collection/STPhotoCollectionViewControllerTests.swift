@@ -123,12 +123,12 @@ class STPhotoCollectionViewControllerTests: XCTestCase {
         XCTAssertTrue(self.interactorSpy.shouldPresentPhotoCalled)
     }
     
-    func testShouldDownloadPhotoImage() {
+    func testShouldFetchImageForPhoto() {
         self.loadView()
         self.sut.sections[self.sut.photosSectionIndex].items = [PhotoCollectionSeeds().getDisplayedPhoto()]
         
         let _ = self.sut.collectionView(UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()), cellForItemAt: IndexPath(item: 0, section: 0))
-        XCTAssertTrue(self.interactorSpy.shouldDownloadPhotoCalled)
+        XCTAssertTrue(self.interactorSpy.shouldFetchImageForPhotoCalled)
     }
     
     func testShouldSetPhotoItemSize() {
@@ -220,5 +220,50 @@ class STPhotoCollectionViewControllerTests: XCTestCase {
         self.waitForMainQueue()
 
         XCTAssertTrue(collectionViewSpy.insertItemsCalled)
+    }
+    
+    // MARK: Fetch image
+    
+    func testDisplayWillFetchImageForPhoto() {
+        let cellInterfaceSpy = STPhotoCollectionViewCellInterfaceSpy()
+        let displayedPhoto = PhotoCollectionSeeds().getDisplayedPhoto()
+        displayedPhoto.photoCollectionViewCellInterface = cellInterfaceSpy
+        displayedPhoto.isLoadingImage = false
+        
+        let viewModel = STPhotoCollection.FetchImage.ViewModel(displayedPhoto: displayedPhoto, image: UIImage())
+        self.sut.displayWillFetchImage(viewModel: viewModel)
+        self.waitForMainQueue()
+        
+        XCTAssertTrue(viewModel.displayedPhoto.isLoadingImage)
+        XCTAssertTrue(cellInterfaceSpy.setIsLoadingCalled)
+    }
+    
+    func testDisplayDidFetchImageForPhoto() {
+        let cellInterfaceSpy = STPhotoCollectionViewCellInterfaceSpy()
+        let displayedPhoto = PhotoCollectionSeeds().getDisplayedPhoto()
+        displayedPhoto.photoCollectionViewCellInterface = cellInterfaceSpy
+        displayedPhoto.isLoadingImage = true
+        
+        let viewModel = STPhotoCollection.FetchImage.ViewModel(displayedPhoto: displayedPhoto, image: UIImage())
+        self.sut.displayDidFetchImage(viewModel: viewModel)
+        self.waitForMainQueue()
+        
+        XCTAssertFalse(viewModel.displayedPhoto.isLoadingImage)
+        XCTAssertTrue(cellInterfaceSpy.setIsLoadingCalled)
+    }
+    
+    func testDisplayImageForPhoto() {
+        let image = UIImage()
+        let cellInterfaceSpy = STPhotoCollectionViewCellInterfaceSpy()
+        let displayedPhoto = PhotoCollectionSeeds().getDisplayedPhoto()
+        displayedPhoto.photoCollectionViewCellInterface = cellInterfaceSpy
+        displayedPhoto.image = nil
+        
+        let viewModel = STPhotoCollection.FetchImage.ViewModel(displayedPhoto: displayedPhoto, image: image)
+        self.sut.displayImage(viewModel: viewModel)
+        self.waitForMainQueue()
+        
+        XCTAssertEqual(displayedPhoto.image, image)
+        XCTAssertTrue(cellInterfaceSpy.setImageCalled)
     }
 }

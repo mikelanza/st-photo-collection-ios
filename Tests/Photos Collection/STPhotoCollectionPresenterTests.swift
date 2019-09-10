@@ -78,6 +78,26 @@ class STPhotoCollectionPresenterTests: XCTestCase {
         self.sut.presentPhotoDetailView(response: STPhotoCollection.PresentPhotoDetail.Response(photo: STPhoto(id: "")))
         XCTAssertTrue(self.displayerSpy.displayPhotoDetailViewCalled)
     }
+    
+    // MARK: Fetch image
+    
+    func testPresentWillFetchImage() {
+        let displayedPhoto = PhotoCollectionSeeds().getDisplayedPhoto()
+        self.sut.presentWillFetchImage(response: STPhotoCollection.FetchImage.Response(displayedPhoto: displayedPhoto, image: nil))
+        XCTAssertTrue(self.displayerSpy.displayWillFetchImageCalled)
+    }
+    
+    func testPresentDidFetchImage() {
+        let displayedPhoto = PhotoCollectionSeeds().getDisplayedPhoto()
+        self.sut.presentDidFetchImage(response: STPhotoCollection.FetchImage.Response(displayedPhoto: displayedPhoto, image: nil))
+        XCTAssertTrue(self.displayerSpy.displayDidFetchImageCalled)
+    }
+    
+    func testPresentImage() {
+        let displayedPhoto = PhotoCollectionSeeds().getDisplayedPhoto()
+        self.sut.presentImage(response: STPhotoCollection.FetchImage.Response(displayedPhoto: displayedPhoto, image: UIImage()))
+        XCTAssertTrue(self.displayerSpy.displayImageCalled)
+    }
 }
 
 

@@ -14,7 +14,7 @@ class STPhotoCollectionWorkerSpy: STPhotoCollectionWorker {
     
     var fetchGeoEntityCalled: Bool = false
     var fetchPhotosCalled: Bool = false
-    var downloadPhotoForCalled: Bool = false
+    var fetchImageForCalled: Bool = false
     
     var geoEntity: GeoEntity? = PhotoCollectionSeeds().geoEntity(id: 10, name: "name", level: .block)
     
@@ -40,10 +40,9 @@ class STPhotoCollectionWorkerSpy: STPhotoCollectionWorker {
         }
     }
     
-    override func downloadPhotoFor(displayedPhoto: STPhotoCollection.DisplayedPhoto?) {
-        self.downloadPhotoForCalled = true
+    override func fetchImageFor(displayedPhoto: STPhotoCollection.DisplayedPhoto) {
+        self.fetchImageForCalled = true
     }
-    
     
     private func didFetchGeoEntity() {
         if self.shouldFailFetchGeoEntity {

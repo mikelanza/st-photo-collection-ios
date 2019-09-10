@@ -64,14 +64,17 @@ extension STPhotoCollectionViewController: UICollectionViewDataSource {
 extension STPhotoCollectionViewController: STPhotoCollectionViewCellDelegate {
     private func photoCollectionViewCellForIndexPath(indexPath: IndexPath) -> STPhotoCollectionViewCell {
         let cell = self.reusablePhotoCollectionViewCellForIndexPath(indexPath: indexPath)
-        let displayedPhoto = self.sections[indexPath.section].items[indexPath.item] as? STPhotoCollection.DisplayedPhoto
-        cell.photoId = displayedPhoto?.id
-        cell.delegate = self
-        cell.setImage(image: nil)
-        displayedPhoto?.interface = cell
-        self.shouldDownloadPhoto(displayedPhoto: displayedPhoto)
+        guard let displayedPhoto = self.sections[indexPath.section].items[indexPath.item] as? STPhotoCollection.DisplayedPhoto else { return cell }
         
-        cell.setImageBackgroundColor(color: displayedPhoto?.backgroundImageColor)
+        displayedPhoto.photoCollectionViewCellInterface = cell
+        cell.delegate = self
+        cell.photoId = displayedPhoto.id
+        
+        cell.setIsLoading(isLoading: displayedPhoto.isLoadingImage)
+        cell.setImage(image: displayedPhoto.image)
+        cell.setImageBackgroundColor(color: displayedPhoto.backgroundImageColor)
+        
+        self.shouldFetchImageForPhoto(displayedPhoto: displayedPhoto)
         return cell
     }
     

@@ -72,6 +72,7 @@
 		8501CD922310220600F59DE1 /* STPhotoCollectionWorkerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8501CD882310220600F59DE1 /* STPhotoCollectionWorkerSpy.swift */; };
 		8501CD962310308200F59DE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8501CD9423102F2500F59DE1 /* Assets.xcassets */; };
 		851765172316A39600AEDD1C /* STPhotoCollectionViewControllerDelegateSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851765162316A39600AEDD1C /* STPhotoCollectionViewControllerDelegateSpy.swift */; };
+		853BEB472327E9CB008891F6 /* STPhotoCollectionViewCellInterfaceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853BEB462327E9CB008891F6 /* STPhotoCollectionViewCellInterfaceSpy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +167,7 @@
 		8501CD882310220600F59DE1 /* STPhotoCollectionWorkerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPhotoCollectionWorkerSpy.swift; sourceTree = "<group>"; };
 		8501CD9423102F2500F59DE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		851765162316A39600AEDD1C /* STPhotoCollectionViewControllerDelegateSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STPhotoCollectionViewControllerDelegateSpy.swift; sourceTree = "<group>"; };
+		853BEB462327E9CB008891F6 /* STPhotoCollectionViewCellInterfaceSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STPhotoCollectionViewCellInterfaceSpy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -679,6 +681,7 @@
 				8501CD872310220600F59DE1 /* STPhotoCollectionPresentationLogicSpy.swift */,
 				8501CD882310220600F59DE1 /* STPhotoCollectionWorkerSpy.swift */,
 				851765162316A39600AEDD1C /* STPhotoCollectionViewControllerDelegateSpy.swift */,
+				853BEB462327E9CB008891F6 /* STPhotoCollectionViewCellInterfaceSpy.swift */,
 			);
 			path = "Test Doubles";
 			sourceTree = "<group>";
@@ -1103,6 +1106,7 @@
 				8501CD892310220600F59DE1 /* STPhotoCollectionInteractorTests.swift in Sources */,
 				8501CD8F2310220600F59DE1 /* STPhotoCollectionRoutingLogicSpy.swift in Sources */,
 				8501CD922310220600F59DE1 /* STPhotoCollectionWorkerSpy.swift in Sources */,
+				853BEB472327E9CB008891F6 /* STPhotoCollectionViewCellInterfaceSpy.swift in Sources */,
 				8501CD8C2310220600F59DE1 /* STPhotoCollectionSeeds.swift in Sources */,
 				8501CD912310220600F59DE1 /* STPhotoCollectionPresentationLogicSpy.swift in Sources */,
 				8501CD8A2310220600F59DE1 /* STPhotoCollectionWorkerTests.swift in Sources */,

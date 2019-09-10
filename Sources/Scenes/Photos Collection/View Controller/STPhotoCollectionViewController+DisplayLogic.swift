@@ -22,6 +22,10 @@ protocol STPhotoCollectionDisplayLogic: class {
     func displayNoMorePhotos()
     
     func displayPhotoDetailView(viewModel: STPhotoCollection.PresentPhotoDetail.ViewModel)
+    
+    func displayWillFetchImage(viewModel: STPhotoCollection.FetchImage.ViewModel)
+    func displayDidFetchImage(viewModel: STPhotoCollection.FetchImage.ViewModel)
+    func displayImage(viewModel: STPhotoCollection.FetchImage.ViewModel)
 }
 
 // MARK: - Display logic (VIP)
@@ -86,5 +90,26 @@ extension STPhotoCollectionViewController: STPhotoCollectionDisplayLogic {
     
     func displayPhotoDetailView(viewModel: STPhotoCollection.PresentPhotoDetail.ViewModel) {
         self.delegate?.photoCollectionViewController(self, navigateToPhotoDetailsFor: viewModel.photo.id)
+    }
+    
+    func displayWillFetchImage(viewModel: STPhotoCollection.FetchImage.ViewModel) {
+        DispatchQueue.main.async {
+            viewModel.displayedPhoto.isLoadingImage = true
+            viewModel.displayedPhoto.photoCollectionViewCellInterface?.setIsLoading(isLoading: true)
+        }
+    }
+    
+    func displayDidFetchImage(viewModel: STPhotoCollection.FetchImage.ViewModel) {
+        DispatchQueue.main.async {
+            viewModel.displayedPhoto.isLoadingImage = false
+            viewModel.displayedPhoto.photoCollectionViewCellInterface?.setIsLoading(isLoading: true)
+        }
+    }
+    
+    func displayImage(viewModel: STPhotoCollection.FetchImage.ViewModel) {
+        DispatchQueue.main.async {
+            viewModel.displayedPhoto.image = viewModel.image
+            viewModel.displayedPhoto.photoCollectionViewCellInterface?.setImage(image: viewModel.image)
+        }
     }
 }

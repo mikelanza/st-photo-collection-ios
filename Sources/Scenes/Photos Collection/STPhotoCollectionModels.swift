@@ -13,10 +13,6 @@
 import UIKit
 import STPhotoCore
 
-protocol STPhotoCollectionInterface: NSObjectProtocol {
-    func setImage(image: UIImage?)
-}
-
 public enum STPhotoCollection {
     public struct Model {
         let entityModel: EntityModel
@@ -64,16 +60,15 @@ public enum STPhotoCollection {
     class DisplayedPhoto {
         var id: String
         var imageUrl: String?
+        var image: UIImage?
+        var isLoadingImage: Bool
         var backgroundImageColor: UIColor?
         
-        weak var interface: STPhotoCollectionInterface?
+        weak var photoCollectionViewCellInterface: STPhotoCollectionViewCellInterface?
         
         init(id: String) {
             self.id = id
-        }
-        
-        func setImage(image: UIImage?) {
-            self.interface?.setImage(image: image)
+            self.isLoadingImage = false
         }
     }
     
@@ -116,9 +111,17 @@ public enum STPhotoCollection {
         }
     }
     
-    enum DownloadPhoto {
+    enum FetchImage {
         struct Request {
-            let displayedPhoto: DisplayedPhoto?
+            let displayedPhoto: DisplayedPhoto
+        }
+        struct Response {
+            let displayedPhoto: DisplayedPhoto
+             let image: UIImage?
+        }
+        struct ViewModel {
+            let displayedPhoto: DisplayedPhoto
+             let image: UIImage?
         }
     }
 }

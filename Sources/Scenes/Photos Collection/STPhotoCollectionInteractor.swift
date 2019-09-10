@@ -20,7 +20,7 @@ protocol STPhotoCollectionBusinessLogic {
     
     func shouldPresentPhoto(request: STPhotoCollection.PresentPhoto.Request)
     
-    func shouldDownloadPhoto(request: STPhotoCollection.DownloadPhoto.Request)
+    func shouldFetchImageForPhoto(request: STPhotoCollection.FetchImage.Request)
     
     func setModel(model: STPhotoCollection.Model)
     func setPhotoItemSize(size: CGSize)
@@ -118,12 +118,6 @@ extension STPhotoCollectionInteractor {
             self.presentPhotoDetailFor(photo: photo)
         }
     }
-        
-    func shouldDownloadPhoto(request: STPhotoCollection.DownloadPhoto.Request) {
-        if request.displayedPhoto?.imageUrl != nil {
-            self.worker?.downloadPhotoFor(displayedPhoto: request.displayedPhoto)
-        }
-    }
 }
 
 // MARK: - PhotoCollectionWorkerDelegate
@@ -156,6 +150,10 @@ extension STPhotoCollectionInteractor: STPhotoCollectionWorkerDelegate {
         self.verifyLastPageOfPhotos(photoCount: photos.count)
     }
     
+    func failureDidFetchPhotos(error: OperationError) {
+        self.presenter?.presentDidFetchPhotos()
+    }
+    
     private func verifyLastPageOfPhotos(photoCount: Int) {
         guard photoCount < self.photosPaginationModel.limit else {
             return
@@ -170,13 +168,34 @@ extension STPhotoCollectionInteractor: STPhotoCollectionWorkerDelegate {
             self.presenter?.presentNoMorePhotos()
         }
     }
-    
-    func successDidFetchPhotoImage(displayedPhoto: STPhotoCollection.DisplayedPhoto?, image: UIImage?) {
-        displayedPhoto?.setImage(image: image)
+}
+
+// MARK: - Fetch image
+
+extension STPhotoCollectionInteractor {
+    func shouldFetchImageForPhoto(request: STPhotoCollection.FetchImage.Request) {
+        let image = request.displayedPhoto.image
+        let imageUrl = request.displayedPhoto.imageUrl
+        let isLoadingImage = request.displayedPhoto.isLoadingImage
+        
+        guard isLoadingImage == false else { return }
+        
+        if image == nil && imageUrl != nil {
+            self.presenter?.presentWillFetchImage(response: STPhotoCollection.FetchImage.Response(displayedPhoto: request.displayedPhoto, image: nil))
+            self.worker?.fetchImageFor(displayedPhoto: request.displayedPhoto)
+        } else if image == nil && imageUrl == nil {
+            self.presenter?.presentImage(response: STPhotoCollection.FetchImage.Response(displayedPhoto: request.displayedPhoto, image: UIImage()))
+        }
     }
     
-    func failureDidFetchPhotoImage(displayedPhoto: STPhotoCollection.DisplayedPhoto?, error: OperationError) {
-        
+    func successDidFetchPhotoImage(displayedPhoto: STPhotoCollection.DisplayedPhoto, image: UIImage?) {
+        self.presenter?.presentDidFetchImage(response: STPhotoCollection.FetchImage.Response(displayedPhoto: displayedPhoto, image: nil))
+        self.presenter?.presentImage(response: STPhotoCollection.FetchImage.Response(displayedPhoto: displayedPhoto, image: image))
+    }
+    
+    func failureDidFetchPhotoImage(displayedPhoto: STPhotoCollection.DisplayedPhoto, error: OperationError) {
+        self.presenter?.presentDidFetchImage(response: STPhotoCollection.FetchImage.Response(displayedPhoto: displayedPhoto, image: nil))
+        self.presenter?.presentImage(response: STPhotoCollection.FetchImage.Response(displayedPhoto: displayedPhoto, image: UIImage()))
     }
 }
 

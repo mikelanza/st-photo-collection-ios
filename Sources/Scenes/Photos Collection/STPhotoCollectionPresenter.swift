@@ -27,6 +27,10 @@ protocol STPhotoCollectionPresentationLogic {
     func presentNoMorePhotos()
     
     func presentPhotoDetailView(response: STPhotoCollection.PresentPhotoDetail.Response)
+    
+    func presentWillFetchImage(response: STPhotoCollection.FetchImage.Response)
+    func presentDidFetchImage(response: STPhotoCollection.FetchImage.Response)
+    func presentImage(response: STPhotoCollection.FetchImage.Response)
 }
 
 class STPhotoCollectionPresenter: STPhotoCollectionPresentationLogic {
@@ -110,5 +114,19 @@ class STPhotoCollectionPresenter: STPhotoCollectionPresentationLogic {
     func presentPhotoDetailView(response: STPhotoCollection.PresentPhotoDetail.Response) {
         let viewModel = STPhotoCollection.PresentPhotoDetail.ViewModel(photo: response.photo)
         self.displayer?.displayPhotoDetailView(viewModel: viewModel)
+    }
+    
+    // MARK: Fetch image
+    
+    func presentWillFetchImage(response: STPhotoCollection.FetchImage.Response) {
+        self.displayer?.displayWillFetchImage(viewModel: STPhotoCollection.FetchImage.ViewModel(displayedPhoto: response.displayedPhoto, image: response.image))
+    }
+    
+    func presentDidFetchImage(response: STPhotoCollection.FetchImage.Response) {
+        self.displayer?.displayDidFetchImage(viewModel: STPhotoCollection.FetchImage.ViewModel(displayedPhoto: response.displayedPhoto, image: response.image))
+    }
+    
+    func presentImage(response: STPhotoCollection.FetchImage.Response) {
+        self.displayer?.displayImage(viewModel: STPhotoCollection.FetchImage.ViewModel(displayedPhoto: response.displayedPhoto, image: response.image))
     }
 }

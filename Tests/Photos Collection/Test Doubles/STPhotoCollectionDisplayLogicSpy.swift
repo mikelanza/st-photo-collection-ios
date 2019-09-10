@@ -18,6 +18,9 @@ class STPhotoCollectionDisplayLogicSpy: NSObject, STPhotoCollectionDisplayLogic 
     var displayNoPhotosCalled: Bool = false
     var displayNoMorePhotosCalled: Bool = false
     var displayPhotoDetailViewCalled: Bool = false
+    var displayWillFetchImageCalled: Bool = false
+    var displayDidFetchImageCalled: Bool = false
+    var displayImageCalled: Bool = false
     
     func displayFetchedPhotos(viewModel: STPhotoCollection.FetchPhotos.ViewModel) {
         self.displayFetchedPhotosCalled = true
@@ -53,5 +56,17 @@ class STPhotoCollectionDisplayLogicSpy: NSObject, STPhotoCollectionDisplayLogic 
     
     func displayPhotoDetailView(viewModel: STPhotoCollection.PresentPhotoDetail.ViewModel) {
         self.displayPhotoDetailViewCalled = true
+    }
+    
+    func displayWillFetchImage(viewModel: STPhotoCollection.FetchImage.ViewModel) {
+        self.displayWillFetchImageCalled = true
+    }
+    
+    func displayDidFetchImage(viewModel: STPhotoCollection.FetchImage.ViewModel) {
+        self.displayDidFetchImageCalled = true
+    }
+    
+    func displayImage(viewModel: STPhotoCollection.FetchImage.ViewModel) {
+        self.displayImageCalled = true
     }
 }
