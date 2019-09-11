@@ -26,7 +26,9 @@ class STPhotoCollectionRouter: NSObject, STPhotoCollectionRoutingLogic, STPhotoC
     var dataStore: STPhotoCollectionDataStore?
     
     func removeViewController() {
-        if let navigationController = self.viewController?.navigationController {
+        if self.viewController?.navigationController?.viewControllers.first == viewController {
+            self.viewController?.dismiss(animated: true, completion: nil)
+        } else if let navigationController = self.viewController?.navigationController {
             navigationController.popViewController(animated: true)
         } else {
             self.viewController?.dismiss(animated: true, completion: nil)
