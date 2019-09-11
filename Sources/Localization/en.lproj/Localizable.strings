@@ -6,5 +6,5 @@
   Copyright © 2019 mikelanza. All rights reserved.
 */
 
-"NoPhotos.title" = "No photos";
-"NoMorePhotos.title" = "No more photos";
+"STPhotoCollection.no.photos.title" = "No photos";
+"STPhotoCollection.no.more.photos.title" = "No more photos";

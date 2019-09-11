@@ -16,8 +16,8 @@ class STPhotoCollectionViewLocalization {
     
     private struct LocalizedKey {
         static let
-        noPhotosTitle = "NoPhotos.title",
-        noMorePhotosTitle = "NoMorePhotos.title"
+        noPhotosTitle = "STPhotoCollection.no.photos.title",
+        noMorePhotosTitle = "STPhotoCollection.no.more.photos.title"
     }
     
     let noPhotosTitle = LocalizedKey.noPhotosTitle.localized(in: Bundle.module)

@@ -6,5 +6,5 @@
   Copyright © 2019 mikelanza. All rights reserved.
 */
 
-"NoPhotos.title" = "Nu există poze";
-"NoMorePhotos.title" = "Nu există mai mult poze";
+"STPhotoCollection.no.photos.title" = "Nu există poze";
+"STPhotoCollection.no.more.photos.title" = "Nu există mai mult poze";
