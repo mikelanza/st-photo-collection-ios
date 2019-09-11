@@ -12,7 +12,7 @@ import STPhotoCore
 class STPhotoCollectionViewControllerDelegateSpy: NSObject, STPhotoCollectionViewControllerDelegate {
     var photoCollectionViewControllerNavigateToPhotoDetailsForPhotoIdCalled: Bool = false
  
-    func photoCollectionViewController(_ viewController: STPhotoCollectionViewController?, navigateToPhotoDetailsFor photoId: String?) {
+    func photoCollectionViewController(_ viewController: STPhotoCollectionViewController?, navigateToPhotoDetailsFor photoId: String) {
         self.photoCollectionViewControllerNavigateToPhotoDetailsForPhotoIdCalled = true
     }
 }

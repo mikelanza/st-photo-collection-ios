@@ -17,9 +17,6 @@ class STPhotoCollectionBusinessLogicSpy: STPhotoCollectionBusinessLogic {
     var shouldFetchImageForPhotoCalled: Bool = false
     var setModelCalled: Bool = false
     var setPhotoItemSizeCalled: Bool = false
-    var shouldLoginUserCalled: Bool = false
-    var shouldDeletePhotoCalled: Bool = false
-    var shouldTrackViewDidAppearCalled: Bool = false
     
     func shouldFetchEntityDetails() {
         self.shouldFetchEntityDetailsCalled = true
@@ -47,10 +44,6 @@ class STPhotoCollectionBusinessLogicSpy: STPhotoCollectionBusinessLogic {
     
     func setPhotoItemSize(size: CGSize) {
         self.setPhotoItemSizeCalled = true
-    }
-    
-    func shouldTrackViewDidAppear() {
-        self.shouldTrackViewDidAppearCalled = true
     }
 }
 

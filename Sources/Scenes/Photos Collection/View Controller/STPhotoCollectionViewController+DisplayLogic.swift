@@ -51,7 +51,7 @@ extension STPhotoCollectionViewController: STPhotoCollectionDisplayLogic {
     func displayWillFetchPhotos() {
         DispatchQueue.main.async {
             self.collectionView?.performBatchUpdates({
-                self.sections[self.photosSectionIndex].isLoading = true
+                self.sections[STPhotoCollection.SectionIndex.photos.rawValue].isLoading = true
             }, completion: { completed in
                 self.collectionView?.collectionViewLayout.invalidateLayout()
             })
@@ -61,7 +61,7 @@ extension STPhotoCollectionViewController: STPhotoCollectionDisplayLogic {
     func displayDidFetchPhotos() {
         DispatchQueue.main.async {
             self.collectionView?.performBatchUpdates({
-                self.sections[self.photosSectionIndex].isLoading = false
+                self.sections[STPhotoCollection.SectionIndex.photos.rawValue].isLoading = false
             }, completion: { completed in
                 self.collectionView?.collectionViewLayout.invalidateLayout()
             })
@@ -71,7 +71,7 @@ extension STPhotoCollectionViewController: STPhotoCollectionDisplayLogic {
     func displayNoPhotos() {
         DispatchQueue.main.async {
             self.collectionView?.performBatchUpdates({
-                self.sections[self.photosSectionIndex].noItems = true
+                self.sections[STPhotoCollection.SectionIndex.photos.rawValue].noItems = true
             }, completion: { completed in
                 self.collectionView?.collectionViewLayout.invalidateLayout()
             })
@@ -81,7 +81,7 @@ extension STPhotoCollectionViewController: STPhotoCollectionDisplayLogic {
     func displayNoMorePhotos() {
         DispatchQueue.main.async {
             self.collectionView?.performBatchUpdates({
-                self.sections[self.photosSectionIndex].noMoreItems = true
+                self.sections[STPhotoCollection.SectionIndex.photos.rawValue].noMoreItems = true
             }, completion: { completed in
                self.collectionView?.collectionViewLayout.invalidateLayout()
             })
@@ -89,7 +89,7 @@ extension STPhotoCollectionViewController: STPhotoCollectionDisplayLogic {
     }
     
     func displayPhotoDetailView(viewModel: STPhotoCollection.PresentPhotoDetail.ViewModel) {
-        self.delegate?.photoCollectionViewController(self, navigateToPhotoDetailsFor: viewModel.photo.id)
+        self.delegate?.photoCollectionViewController(self, navigateToPhotoDetailsFor: viewModel.photoId)
     }
     
     func displayWillFetchImage(viewModel: STPhotoCollection.FetchImage.ViewModel) {

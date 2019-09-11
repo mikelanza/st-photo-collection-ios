@@ -16,18 +16,10 @@ class STPhotoCollectionViewLocalization {
     
     private struct LocalizedKey {
         static let
-        addToFavoritesButtonTitle = "AddToFavoritesButton.title",
-        removeFromFavoritesButtonTitle = "RemoveFromFavoritesButton.title",
         noPhotosTitle = "NoPhotos.title",
-        noMorePhotosTitle = "NoMorePhotos.title",
-        blockedUserTitle = "BlockedUser.title"
+        noMorePhotosTitle = "NoMorePhotos.title"
     }
-
-    let addToFavoritesButtonTitle = LocalizedKey.addToFavoritesButtonTitle.localized(in: Bundle.module)
-    let removeFromFavoritesButtonTitle = LocalizedKey.removeFromFavoritesButtonTitle.localized(in: Bundle.module)
     
     let noPhotosTitle = LocalizedKey.noPhotosTitle.localized(in: Bundle.module)
     let noMorePhotosTitle = LocalizedKey.noMorePhotosTitle.localized(in: Bundle.module)
-
-    let blockedUserTitle = LocalizedKey.blockedUserTitle.localized(in: Bundle.module)
 }

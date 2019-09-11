@@ -44,9 +44,7 @@ class STPhotoCollectionPresenter: STPhotoCollectionPresentationLogic {
     }
     
     private func imageNameForEntityLevel(level: EntityLevel?) -> String? {
-        guard let level = level else {
-            return nil
-        }
+        guard let level = level else { return nil }
         switch level {
             case .location: return nil
             case .block: return "st_photo_collection_block"
@@ -112,7 +110,7 @@ class STPhotoCollectionPresenter: STPhotoCollectionPresentationLogic {
     }
     
     func presentPhotoDetailView(response: STPhotoCollection.PresentPhotoDetail.Response) {
-        let viewModel = STPhotoCollection.PresentPhotoDetail.ViewModel(photo: response.photo)
+        let viewModel = STPhotoCollection.PresentPhotoDetail.ViewModel(photoId: response.photoId)
         self.displayer?.displayPhotoDetailView(viewModel: viewModel)
     }
     

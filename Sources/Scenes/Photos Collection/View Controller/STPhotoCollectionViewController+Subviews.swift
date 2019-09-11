@@ -23,6 +23,10 @@ extension STPhotoCollectionViewController {
         self.view.backgroundColor = UIColor.white
     }
     
+    func showNavigationBar() {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.isTranslucent = STPhotoCollectionStyle.shared.navigationBarModel.isTranslucent
         self.navigationController?.navigationBar.barTintColor = STPhotoCollectionStyle.shared.navigationBarModel.barTintColor
@@ -35,15 +39,6 @@ extension STPhotoCollectionViewController {
     private func setupNavigationBarBackButton() {
         let button = UIBarButtonItem(image: STPhotoCollectionStyle.shared.backButtonModel.image, style: .plain, target: self, action: #selector(STPhotoCollectionViewController.didTapBackButton))
         self.navigationItem.leftBarButtonItem = button
-    }
-    
-    private func setupActivityIndicatorNavigationBarButton() {
-        let view = UIActivityIndicatorView(frame: CGRect(x: 0.0, y: 0.0, width: 30, height: 30))
-        view.startAnimating()
-        let item = UIBarButtonItem(customView: view)
-        DispatchQueue.main.async {
-            self.navigationItem.rightBarButtonItem = item
-        }
     }
     
     private func setupEntityView() {
@@ -66,7 +61,7 @@ extension STPhotoCollectionViewController {
         
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "UICollectionReusableView")
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "UICollectionReusableView")
-        
+    
         collectionView.register(STLoadingCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: STLoadingCollectionReusableView.defaultReuseIdentifier)
         collectionView.register(STNoPhotosCollectionFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: STNoPhotosCollectionFooterView.defaultReuseIdentifier)
         collectionView.register(STNoMorePhotosFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: STNoMorePhotosFooterView.defaultReuseIdentifier)

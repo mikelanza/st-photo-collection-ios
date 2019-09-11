@@ -15,11 +15,15 @@ class STPhotoCollectionStyle {
     var entityViewModel: EntityViewModel
     var navigationBarModel: NavigationBarModel
     var backButtonModel: BackButtonModel
+    var noPhotosModel: NoPhotosModel
+    var noMorePhotosModel: NoMorePhotosModel
 
     private init() {
         self.entityViewModel = EntityViewModel()
         self.navigationBarModel = NavigationBarModel()
         self.backButtonModel = BackButtonModel()
+        self.noPhotosModel = NoPhotosModel()
+        self.noMorePhotosModel = NoMorePhotosModel()
     }
     
     struct NavigationBarModel {
@@ -37,6 +41,21 @@ class STPhotoCollectionStyle {
     
     struct EntityViewModel {
         var backgroundColor: UIColor = UIColor(red: 53/255, green: 61/255, blue: 75/255, alpha: 1)
-        
+    }
+    
+    struct NoPhotosModel {
+        var titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor(red: 185/255, green: 190/255, blue: 204/255, alpha: 1.0),
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0)
+        ]
+        var image: UIImage = UIImage(named: "st_photo_collection_no_photos", in: Bundle.module, compatibleWith: nil)!
+    }
+    
+    struct NoMorePhotosModel {
+        var titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor(red: 185/255, green: 190/255, blue: 204/255, alpha: 1.0),
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0)
+        ]
+        var image: UIImage = UIImage(named: "st_photo_collection_no_more_photos", in: Bundle.module, compatibleWith: nil)!
     }
 }

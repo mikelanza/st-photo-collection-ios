@@ -23,8 +23,8 @@ class STNoPhotosCollectionFooterView: UICollectionReusableView, DefaultReuseIden
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupTitleLabel(text: String) {
-        self.titleLabel?.text = text
+    func setAttributedTitle(_ attributedTitle: NSAttributedString?) {
+        self.titleLabel?.attributedText = attributedTitle
     }
 }
 
@@ -44,7 +44,7 @@ extension STNoPhotosCollectionFooterView {
     private func setupImageView() {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = #imageLiteral(resourceName: "no_more_photos_icon")
+        imageView.image = STPhotoCollectionStyle.shared.noPhotosModel.image
         imageView.contentMode = .center
         imageView.clipsToBounds = true
         self.addSubview(imageView)
@@ -61,9 +61,7 @@ extension STNoPhotosCollectionFooterView {
     private func setupTitleLabel() {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 14.0)
-        label.textColor = UIColor(red: 185/255, green: 190/255, blue: 204/255, alpha: 1.0)
-        label.text = STPhotoCollectionViewLocalization.sharedInstance.noPhotosTitle
+        label.attributedText = NSAttributedString(string: STPhotoCollectionViewLocalization.sharedInstance.noPhotosTitle, attributes: STPhotoCollectionStyle.shared.noPhotosModel.titleTextAttributes)
         self.addSubview(label)
         self.titleLabel = label
     }

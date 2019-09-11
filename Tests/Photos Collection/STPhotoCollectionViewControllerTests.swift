@@ -58,6 +58,26 @@ class STPhotoCollectionViewControllerTests: XCTestCase {
         waitForExpectations(timeout: 1.0)
     }
     
+    // MARK: - Table view tests
+    
+    func testIfViewControllerConformsToCollectionViewDataSource() {
+        XCTAssertTrue(self.sut.conforms(to: UICollectionViewDataSource.self))
+    }
+    
+    func testIfViewControllerConformsToCollectionViewDelegate() {
+        XCTAssertTrue(self.sut.conforms(to: UICollectionViewDelegate.self))
+    }
+    
+    func testIfViewControllerImplementsCollectionViewDataSourceMethods() {
+        XCTAssertTrue(self.sut.responds(to: #selector(UICollectionViewDataSource.numberOfSections(in:))))
+        XCTAssertTrue(self.sut.responds(to: #selector(UICollectionViewDataSource.collectionView(_:numberOfItemsInSection:))))
+        XCTAssertTrue(self.sut.responds(to: #selector(UICollectionViewDataSource.collectionView(_:cellForItemAt:))))
+    }
+    
+    func testIfViewControllerImplementsCollectionViewDelegateMethods() {
+        XCTAssertTrue(self.sut.responds(to: #selector(UICollectionViewDelegate.collectionView(_:didSelectItemAt:))))
+    }
+    
     // MARK: - Test doubles
     
     class CollectionViewSpy: UICollectionView {
@@ -118,14 +138,14 @@ class STPhotoCollectionViewControllerTests: XCTestCase {
     
     func testShouldPresentPhoto() {
         self.loadView()
-        self.sut.sections[self.sut.photosSectionIndex].items = [PhotoCollectionSeeds().getDisplayedPhoto()]
+        self.sut.sections[STPhotoCollection.SectionIndex.photos.rawValue].items = [PhotoCollectionSeeds().getDisplayedPhoto()]
         let _ = self.sut.collectionView(UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()), didSelectItemAt: IndexPath(item: 0, section: 0))
         XCTAssertTrue(self.interactorSpy.shouldPresentPhotoCalled)
     }
     
     func testShouldFetchImageForPhoto() {
         self.loadView()
-        self.sut.sections[self.sut.photosSectionIndex].items = [PhotoCollectionSeeds().getDisplayedPhoto()]
+        self.sut.sections[STPhotoCollection.SectionIndex.photos.rawValue].items = [PhotoCollectionSeeds().getDisplayedPhoto()]
         
         let _ = self.sut.collectionView(UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()), cellForItemAt: IndexPath(item: 0, section: 0))
         XCTAssertTrue(self.interactorSpy.shouldFetchImageForPhotoCalled)
@@ -168,33 +188,33 @@ class STPhotoCollectionViewControllerTests: XCTestCase {
         self.loadView()
         self.sut.displayWillFetchPhotos()
         self.waitForMainQueue()
-        XCTAssertTrue(self.sut.sections[self.sut.photosSectionIndex].isLoading)
+        XCTAssertTrue(self.sut.sections[STPhotoCollection.SectionIndex.photos.rawValue].isLoading)
     }
 
     func testDisplayDidFetchPhotos() {
         self.loadView()
         self.sut.displayDidFetchPhotos()
         self.waitForMainQueue()
-        XCTAssertFalse(self.sut.sections[self.sut.photosSectionIndex].isLoading)
+        XCTAssertFalse(self.sut.sections[STPhotoCollection.SectionIndex.photos.rawValue].isLoading)
     }
 
     func testDisplayNoPhotos() {
         self.loadView()
         self.sut.displayNoPhotos()
         self.waitForMainQueue()
-        XCTAssertTrue(self.sut.sections[self.sut.photosSectionIndex].noItems)
+        XCTAssertTrue(self.sut.sections[STPhotoCollection.SectionIndex.photos.rawValue].noItems)
     }
 
     func testDisplayNoMorePhotos() {
         self.loadView()
         self.sut.displayNoMorePhotos()
         self.waitForMainQueue()
-        XCTAssertTrue(self.sut.sections[self.sut.photosSectionIndex].noMoreItems)
+        XCTAssertTrue(self.sut.sections[STPhotoCollection.SectionIndex.photos.rawValue].noMoreItems)
     }
 
     func testDisplayPhotoDetailsViewShouldAskTheDelegateToSendNAvigateToPhotoDetailsForPhotoId() {
         self.loadView()
-        self.sut.displayPhotoDetailView(viewModel: STPhotoCollection.PresentPhotoDetail.ViewModel(photo: STPhoto(id: "")))
+        self.sut.displayPhotoDetailView(viewModel: STPhotoCollection.PresentPhotoDetail.ViewModel(photoId: ""))
         XCTAssertTrue(self.delegateSpy.photoCollectionViewControllerNavigateToPhotoDetailsForPhotoIdCalled)
     }
     
@@ -205,7 +225,7 @@ class STPhotoCollectionViewControllerTests: XCTestCase {
         self.sut.displayFetchedPhotos(viewModel: STPhotoCollection.FetchPhotos.ViewModel(displayedPhotos: displayedPhotos))
         self.waitForMainQueue()
         
-        XCTAssertEqual(self.sut.sections[self.sut.photosSectionIndex].items.count, displayedPhotos.count)
+        XCTAssertEqual(self.sut.sections[STPhotoCollection.SectionIndex.photos.rawValue].items.count, displayedPhotos.count)
     }
     
     func testDisplayFetchedPhotosShouldInsertItems() {

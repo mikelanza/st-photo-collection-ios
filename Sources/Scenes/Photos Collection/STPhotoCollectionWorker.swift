@@ -36,10 +36,7 @@ class STPhotoCollectionWorker {
         self.delegate = delegate
     }
     
-    func fetchGeoEntity(location: STLocation, entityLevel: EntityLevel) {
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 1
-                
+    func fetchGeoEntity(location: STLocation, entityLevel: EntityLevel) {                
         self.locationEntitiesService.fetchPhotoEntities(location: location) { result in
             switch result {
             case .success(let entities): self.delegate?.successDidGetGeoEntity(geoEntity: entities[entityLevel]); break

@@ -14,7 +14,7 @@ import UIKit
 import STPhotoCore
 
 public protocol STPhotoCollectionViewControllerDelegate: NSObjectProtocol {
-    func photoCollectionViewController(_ viewController: STPhotoCollectionViewController?, navigateToPhotoDetailsFor photoId: String?)
+    func photoCollectionViewController(_ viewController: STPhotoCollectionViewController?, navigateToPhotoDetailsFor photoId: String)
 }
 
 public class STPhotoCollectionViewController: UIViewController {
@@ -26,21 +26,7 @@ public class STPhotoCollectionViewController: UIViewController {
     weak var entityView: STEntityView!
     weak var collectionView: UICollectionView!
     
-    struct Section {
-        var title: String?
-        var items: [Any]
-        var isLoading: Bool = false
-        var noMoreItems: Bool = false
-        var noItems: Bool = false
-        
-        init(title: String?, items: [Any]) {
-            self.title = title
-            self.items = items
-        }
-    }
-    
-    var sections: [Section] = []
-    var photosSectionIndex: Int = 0
+    var sections: [STPhotoCollection.Section] = []
     
     private lazy var photoItemSize: CGSize = {
         let spacing: CGFloat = 1.0
@@ -104,7 +90,7 @@ public class STPhotoCollectionViewController: UIViewController {
     }
     
     private func setupSections() {
-        let photosSection = Section(title: nil, items: [])
+        let photosSection = STPhotoCollection.Section(title: nil, items: [])
         self.sections = [photosSection]
     }
     
@@ -135,14 +121,6 @@ extension STPhotoCollectionViewController {
         if currentOffset == maximumOffset && scrollView.isDecelerating {
             self.interactor?.shouldFetchNextEntityPhotos()
         }
-    }
-}
-
-// MARK: - Update & manipulate subviews
-
-extension STPhotoCollectionViewController {
-    private func showNavigationBar() {
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
 }
 

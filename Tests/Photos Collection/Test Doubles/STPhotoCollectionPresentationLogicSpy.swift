@@ -18,8 +18,6 @@ class STPhotoCollectionPresentationLogicSpy: STPhotoCollectionPresentationLogic 
     var presentNoPhotosCalled: Bool = false
     var presentNoMorePhotosCalled: Bool = false
     var presentPhotoDetailViewCalled: Bool = false
-    var presentLoginViewCalled: Bool = false
-    var presentDeletePhotoCalled: Bool = false
     var presentWillFetchImageCalled: Bool = false
     var presentDidFetchImageCalled: Bool = false
     var presentImageCalled: Bool = false
@@ -58,10 +56,6 @@ class STPhotoCollectionPresentationLogicSpy: STPhotoCollectionPresentationLogic 
     
     func presentPhotoDetailView(response: STPhotoCollection.PresentPhotoDetail.Response) {
         self.presentPhotoDetailViewCalled = true
-    }
-    
-    func presentLoginView() {
-        self.presentLoginViewCalled = true
     }
     
     func presentWillFetchImage(response: STPhotoCollection.FetchImage.Response) {

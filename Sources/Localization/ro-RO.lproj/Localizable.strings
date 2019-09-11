@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  STPhotoCollection
+
+  Created by Crasneanu Cristian on 11/09/2019.
+  Copyright © 2019 mikelanza. All rights reserved.
+*/
+
+"NoPhotos.title" = "Nu există poze";
+"NoMorePhotos.title" = "Nu există mai mult poze";

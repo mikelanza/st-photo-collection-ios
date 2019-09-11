@@ -75,7 +75,7 @@ class STPhotoCollectionPresenterTests: XCTestCase {
     }
     
     func testPresentPhotoDetailView(response: STPhotoCollection.PresentPhotoDetail.Response) {
-        self.sut.presentPhotoDetailView(response: STPhotoCollection.PresentPhotoDetail.Response(photo: STPhoto(id: "")))
+        self.sut.presentPhotoDetailView(response: STPhotoCollection.PresentPhotoDetail.Response(photoId: ""))
         XCTAssertTrue(self.displayerSpy.displayPhotoDetailViewCalled)
     }
     

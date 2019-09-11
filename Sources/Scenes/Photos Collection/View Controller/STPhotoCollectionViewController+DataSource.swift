@@ -184,56 +184,14 @@ extension STPhotoCollectionViewController {
         DispatchQueue.main.async {
             self.collectionView?.collectionViewLayout.invalidateLayout()
             self.collectionView?.performBatchUpdates({
-                let index = self.sections[self.photosSectionIndex].items.count
-                let indexPaths = displayedPhotos.enumerated().map({ IndexPath(item: index + $0.offset, section: self.photosSectionIndex) })
-                self.sections[self.photosSectionIndex].items.append(contentsOf: displayedPhotos)
+                let index = self.sections[STPhotoCollection.SectionIndex.photos.rawValue].items.count
+                let indexPaths = displayedPhotos.enumerated().map({ IndexPath(item: index + $0.offset, section: STPhotoCollection.SectionIndex.photos.rawValue) })
+                self.sections[STPhotoCollection.SectionIndex.photos.rawValue].items.append(contentsOf: displayedPhotos)
                 self.collectionView?.insertItems(at: indexPaths)
             }, completion: { (success) in
                 self.collectionView?.collectionViewLayout.invalidateLayout()
             })
         }
-    }
-    
-    func reloadPhotosSection() {
-        DispatchQueue.main.async {
-            UIView.performWithoutAnimation {
-                self.collectionView?.reloadSections(IndexSet(integer: self.photosSectionIndex))
-            }
-        }
-    }
-    
-    func invalidateCollectionViewLayout() {
-        DispatchQueue.main.async {
-            self.collectionView?.collectionViewLayout.invalidateLayout()
-        }
-    }
-    
-    private func reloadDisplayedPhoto(item: Int) {
-        let indexPath = IndexPath(item: item, section: self.photosSectionIndex)
-        DispatchQueue.main.async {
-            UIView.performWithoutAnimation {
-                self.collectionView?.reloadItems(at: [indexPath])
-            }
-        }
-    }
-        
-    func deletePhoto(photoId: String) {
-        DispatchQueue.main.async {
-            self.collectionView?.performBatchUpdates({
-                if let index = self.index(photoId: photoId) {
-                    let indexPath = IndexPath(item: index, section: self.photosSectionIndex)
-                    self.sections[self.photosSectionIndex].items.remove(at: index)
-                    self.collectionView?.deleteItems(at: [indexPath])
-                }
-            }, completion: nil)
-        }
-    }
-    
-    private func index(photoId: String) -> Int? {
-        return self.sections[self.photosSectionIndex].items
-            .enumerated()
-            .reversed()
-            .first(where: { ($0.element as? STPhotoCollection.DisplayedPhoto)?.id == photoId })?.offset
     }
     
     private func displayedPhotoFor(indexPath: IndexPath) -> STPhotoCollection.DisplayedPhoto? {

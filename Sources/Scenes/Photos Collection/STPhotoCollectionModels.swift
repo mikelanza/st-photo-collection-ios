@@ -25,6 +25,23 @@ public enum STPhotoCollection {
         }
     }
     
+    struct Section {
+        var title: String?
+        var items: [Any]
+        var isLoading: Bool = false
+        var noMoreItems: Bool = false
+        var noItems: Bool = false
+        
+        init(title: String?, items: [Any]) {
+            self.title = title
+            self.items = items
+        }
+    }
+    
+    enum SectionIndex: Int {
+        case photos = 0
+    }
+    
     public struct EntityModel {
         var location: STLocation
         var level: EntityLevel
@@ -103,11 +120,11 @@ public enum STPhotoCollection {
     
     enum PresentPhotoDetail {
         struct Response {
-            let photo: STPhoto
+            let photoId: String
         }
         
         struct ViewModel {
-            let photo: STPhoto
+            let photoId: String
         }
     }
     
