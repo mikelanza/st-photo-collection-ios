@@ -16,16 +16,7 @@ enum GetPhotosOperationModel {
     }
     
     struct Response: Codable {
-        var photos: [STPhoto] = []
-                
-        init(photos: [STPhoto]) {
-            self.photos = photos
-        }
-        
-        init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            self.photos = try container.decodeWrapper(key: .photos, defaultValue: [])
-        }
+        let photos: [STPhoto]
     }
     
     struct EntityFilter {

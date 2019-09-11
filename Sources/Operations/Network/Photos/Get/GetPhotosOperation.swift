@@ -45,7 +45,8 @@ class GetPhotosOperation: AsynchronousOperation {
         do {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601)
-            let response = try decoder.decode(GetPhotosOperationModel.Response.self, from: data)
+            let photos = try decoder.decode([STPhoto].self, from: data)
+            let response = GetPhotosOperationModel.Response(photos: photos)
             self.successBlock(response: response)
         } catch {
             self.cannotParseResponseErrorBlock()
