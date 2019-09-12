@@ -16,6 +16,6 @@ Pod::Spec.new do |s|
      ss.source_files  = "Sources/**/*.swift"
      ss.resource_bundles = { "STPhotoCollection" => ["Sources/**/*.{lproj,xcassets}"] }
      ss.framework  = "Foundation"
-     ss.dependency "STPhotoCore", "~> 0.1.3"
+     ss.dependency "STPhotoCore", "~> 0.1.4"
  end
 end
