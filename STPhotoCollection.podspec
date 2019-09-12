@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
  s.name = 'STPhotoCollection'
- s.version = '0.1.0'
+ s.version = '0.1.1'
  s.license = { :type => "MIT", :file => "LICENSE" }
  s.summary = 'Photo collection for Streetography'
  s.homepage = 'https://streetography.com'
