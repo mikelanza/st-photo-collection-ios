@@ -51,7 +51,7 @@ class STPhotoCollectionPresenter: STPhotoCollectionPresentationLogic {
             case .neighborhood: return "st_photo_collection_neighborhood"
             case .city: return "st_photo_collection_city"
             case .county: return "st_photo_collection_county"
-            case .state: return "state_region_white_icon"
+            case .state: return "st_photo_collection_state_region"
             case .country: return "st_photo_collection_country"
             case .unknown: return nil
         }
