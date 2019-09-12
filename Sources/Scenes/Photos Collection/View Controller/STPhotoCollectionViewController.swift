@@ -89,6 +89,10 @@ public class STPhotoCollectionViewController: UIViewController {
         self.showNavigationBar()
     }
     
+    override public var preferredStatusBarStyle: UIStatusBarStyle {
+        return STPhotoCollectionStyle.shared.navigationBarModel.barStyle
+    }
+    
     private func setupSections() {
         let photosSection = STPhotoCollection.Section(title: nil, items: [])
         self.sections = [photosSection]

@@ -20,7 +20,7 @@ extension STPhotoCollectionViewController {
     
     func setupView() {
         self.edgesForExtendedLayout = []
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = STPhotoCollectionStyle.shared.contentViewModel.backgroundColor
     }
     
     func showNavigationBar() {
@@ -53,7 +53,7 @@ extension STPhotoCollectionViewController {
     private func setupCollectionView() {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = UIColor.white
+        collectionView.backgroundColor = STPhotoCollectionStyle.shared.collectionViewModel.backgroundColor
         collectionView.dataSource = self
         collectionView.delegate = self
         

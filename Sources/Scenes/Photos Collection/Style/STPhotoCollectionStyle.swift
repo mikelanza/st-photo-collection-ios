@@ -12,18 +12,26 @@ import STPhotoCore
 class STPhotoCollectionStyle {
     static let shared = STPhotoCollectionStyle()
     
+    var contentViewModel: ContentViewModel
     var entityViewModel: EntityViewModel
     var navigationBarModel: NavigationBarModel
     var backButtonModel: BackButtonModel
     var noPhotosModel: NoPhotosModel
     var noMorePhotosModel: NoMorePhotosModel
+    var collectionViewModel: CollectionViewModel
 
     private init() {
+        self.contentViewModel = ContentViewModel()
         self.entityViewModel = EntityViewModel()
         self.navigationBarModel = NavigationBarModel()
         self.backButtonModel = BackButtonModel()
         self.noPhotosModel = NoPhotosModel()
         self.noMorePhotosModel = NoMorePhotosModel()
+        self.collectionViewModel = CollectionViewModel()
+    }
+    
+    struct ContentViewModel {
+        var backgroundColor: UIColor = UIColor(red: 53/255, green: 61/255, blue: 75/255, alpha: 1)
     }
     
     struct NavigationBarModel {
@@ -57,5 +65,9 @@ class STPhotoCollectionStyle {
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0)
         ]
         var image: UIImage = UIImage(named: "st_photo_collection_no_more_photos", in: Bundle.module, compatibleWith: nil)!
+    }
+    
+    struct CollectionViewModel {
+        var backgroundColor: UIColor = UIColor.white
     }
 }
