@@ -20,7 +20,7 @@ protocol STPhotoCollectionWorkerDelegate: class {
     func successDidFetchPhotoImage(displayedPhoto: STPhotoCollection.DisplayedPhoto, image: UIImage?)
     func failureDidFetchPhotoImage(displayedPhoto: STPhotoCollection.DisplayedPhoto, error: OperationError)
     
-    func didFetchPhotos(photos: [STPhoto])
+    func successDidFetchPhotos(photos: [STPhoto])
     func failureDidFetchPhotos(error: OperationError)
 }
 
@@ -28,16 +28,16 @@ class STPhotoCollectionWorker {
     
     weak var delegate: STPhotoCollectionWorkerDelegate?
     
-    var photosService: PhotosServiceProtocol = ServiceConfigurator.shared.photosService()
-    var locationEntitiesService: LocationEntitiesServiceProtocol = ServiceConfigurator.shared.locationEntitiesService()
-    var imageService: ImageServiceProtocol = ServiceConfigurator.shared.imageService()
+    var photosTask: PhotosTaskProtocol = TaskConfigurator.shared.photosTask()
+    var locationEntitiesTask: LocationEntitiesTaskProtocol = TaskConfigurator.shared.locationEntitiesTask()
+    var imageTask: ImageTaskProtocol = TaskConfigurator.shared.imageTask()
     
     init(delegate: STPhotoCollectionWorkerDelegate?) {
         self.delegate = delegate
     }
     
     func fetchGeoEntity(location: STLocation, entityLevel: EntityLevel) {                
-        self.locationEntitiesService.fetchPhotoEntities(location: location) { result in
+        self.locationEntitiesTask.fetchPhotoEntities(location: location) { result in
             switch result {
             case .success(let entities): self.delegate?.successDidGetGeoEntity(geoEntity: entities[entityLevel]); break
             case .failure(let error): self.delegate?.failureDidGetGeoEntity(error: error); break
@@ -45,21 +45,21 @@ class STPhotoCollectionWorker {
         }
     }
     
-    func fetchPhotos(model: FetchPhotosModel) {
-        let entity = GetPhotosOperationModel.Entity(entityId: model.geoEntity.id, entityType: model.entityModel.level.rawValue)
-        let filter = GetPhotosOperationModel.Filter(userId: model.filterModel.userId, collectionId: model.filterModel.collectionId)
-        let entityFilter = GetPhotosOperationModel.EntityFilter(limit: model.limit, skip: model.skip, entity: entity, filter: filter)
-        
-        self.photosService.fetchPhotos(photoIds: nil, entityFilter: entityFilter, completionHandler: { result in
+    func fetchPhotos(model: FetchPhotosModel) {        
+        var fetchModel = PhotosTaskModel.Fetch()
+        let entity = PhotosTaskModel.Entity(entityId: model.geoEntity.id, entityType: model.entityModel.level.rawValue)
+        let filter = PhotosTaskModel.Filter(userId: model.filterModel.userId, collectionId: model.filterModel.collectionId)
+        fetchModel.entityFilter = PhotosTaskModel.EntityFilter(limit: model.limit, skip: model.skip, entity: entity, filter: filter)
+        self.photosTask.fetchPhotos(model: fetchModel, completionHandler: { result in
             switch result {
-            case .success(let photos): self.delegate?.didFetchPhotos(photos: photos); break
-            case .failure(let error): self.delegate?.failureDidFetchPhotos(error: error); break
+                case .success(let photos): self.delegate?.successDidFetchPhotos(photos: photos); break
+                case .failure(let error): self.delegate?.failureDidFetchPhotos(error: error); break
             }
         })
     }
     
     func fetchImageFor(displayedPhoto: STPhotoCollection.DisplayedPhoto) {
-        self.imageService.fetchImage(url: displayedPhoto.imageUrl) { result in
+        self.imageTask.fetchImage(url: displayedPhoto.imageUrl) { result in
             switch result {
             case .success(let image): self.delegate?.successDidFetchPhotoImage(displayedPhoto: displayedPhoto, image: image); break
             case .failure(let error): self.delegate?.failureDidFetchPhotoImage(displayedPhoto: displayedPhoto, error: error); break
