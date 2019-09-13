@@ -79,8 +79,6 @@ class STPhotoCollectionPresenterTests: XCTestCase {
         XCTAssertTrue(self.displayerSpy.displayPhotoDetailViewCalled)
     }
     
-    // MARK: Fetch image
-    
     func testPresentWillFetchImage() {
         let displayedPhoto = PhotoCollectionSeeds().getDisplayedPhoto()
         self.sut.presentWillFetchImage(response: STPhotoCollection.FetchImage.Response(displayedPhoto: displayedPhoto, image: nil))

@@ -46,7 +46,6 @@ struct PhotoCollectionSeeds {
     }
     
     func geoEntity() -> GeoEntity {
-        
         return GeoEntity(id: 0, boundingBox: BoundingBox(boundingCoordinates: BoundingCoordinates(46,25,46,25)))
     }
     
@@ -54,7 +53,6 @@ struct PhotoCollectionSeeds {
         let geoEntity = GeoEntity(id: 0, boundingBox: BoundingBox(boundingCoordinates: BoundingCoordinates(46,25,46,25)))
         let entityModel = STPhotoCollection.EntityModel(location: STLocation(latitude: 46, longitude: 25), level: EntityLevel(rawValue: "")!)
         let filterModel = STPhotoCollection.FilterModel(userId: nil, collectionId: nil)
-        
         return STPhotoCollectionWorker.FetchPhotosModel(skip: 0, limit: 0, geoEntity: geoEntity, entityModel: entityModel, filterModel: filterModel)
     }
 }

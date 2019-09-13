@@ -30,7 +30,7 @@ class STPhotoCollectionWorkerTests: XCTestCase {
         self.sut = STPhotoCollectionWorker(delegate: self.delegateSpy)
     }
     
-    // MARK: - Fetch geo entity
+    // MARK: - Tests
     
     func testFetchImageForPhoto() {
         let taskSpy = ImageLocalTaskSpy()

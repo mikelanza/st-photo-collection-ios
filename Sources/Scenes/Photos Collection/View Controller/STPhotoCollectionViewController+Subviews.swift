@@ -8,8 +8,6 @@
 
 import UIKit
 
-// MARK: - Setup subviews
-
 extension STPhotoCollectionViewController {
     func setupSubviews() {
         self.setupNavigationBar()

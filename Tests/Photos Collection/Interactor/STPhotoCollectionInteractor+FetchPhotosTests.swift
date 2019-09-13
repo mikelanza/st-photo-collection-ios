@@ -50,7 +50,6 @@ extension STPhotoCollectionInteractorTests {
         XCTAssertTrue(self.presenterSpy.presentFetchedPhotosCalled)
     }
     
-    
     func testSuccessDidFetchShouldAskThePresenterToPresentDidFetchPhotosWhenDidFetchLastPhotos() {
         self.preconditionsForFetchPhotos()
         self.workerSpy.photos = []

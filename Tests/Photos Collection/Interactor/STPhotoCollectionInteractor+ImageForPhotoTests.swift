@@ -6,7 +6,6 @@
 //  Copyright © 2019 Streetography. All rights reserved.
 //
 
-
 @testable import STPhotoCollection
 import XCTest
 import STPhotoCore
@@ -35,7 +34,6 @@ extension STPhotoCollectionInteractorTests {
         
         XCTAssertFalse(self.workerSpy.fetchImageForCalled)
     }
-    
     
     func testFetchImageForPhotoWhenThereIsNoUrl() {
         let displayedPhoto = PhotoCollectionSeeds().getDisplayedPhoto()
