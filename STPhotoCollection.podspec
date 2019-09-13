@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
  s.name = 'STPhotoCollection'
- s.version = '0.1.1'
+ s.version = '0.1.2'
  s.license = { :type => "MIT", :file => "LICENSE" }
  s.summary = 'Photo collection for Streetography'
  s.homepage = 'https://streetography.com'
@@ -16,6 +16,6 @@ Pod::Spec.new do |s|
      ss.source_files  = "Sources/**/*.swift"
      ss.resource_bundles = { "STPhotoCollection" => ["Sources/**/*.{lproj,xcassets}"] }
      ss.framework  = "Foundation"
-     ss.dependency "STPhotoCore", "~> 0.1.3"
+     ss.dependency "STPhotoCore", "~> 0.1.4"
  end
 end

@@ -8,8 +8,6 @@
 
 import UIKit
 
-// MARK: - UICollectionViewDataSource
-
 extension STPhotoCollectionViewController: UICollectionViewDataSource {
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.sections.count

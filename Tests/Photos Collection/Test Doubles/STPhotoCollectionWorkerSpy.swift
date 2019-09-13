@@ -25,17 +25,23 @@ class STPhotoCollectionWorkerSpy: STPhotoCollectionWorker {
     override func fetchGeoEntity(location: STLocation, entityLevel: EntityLevel) {
         self.fetchGeoEntityCalled = true
         
-        self.didFetchGeoEntity()
+        if self.delay == 0 {
+            self.didFetchGeoEntity()
+        } else {
+            DispatchQueue.global().asyncAfter(deadline: .now() + self.delay) {
+                self.didFetchGeoEntity()
+            }
+        }
     }
     
     override func fetchPhotos(model: FetchPhotosModel) {
         self.fetchPhotosCalled = true
         
         if self.delay == 0 {
-             self.delegate?.didFetchPhotos(photos: self.photos)
+             self.delegate?.successDidFetchPhotos(photos: self.photos)
         } else {
             DispatchQueue.global().asyncAfter(deadline: .now() + self.delay) {
-                 self.delegate?.didFetchPhotos(photos: self.photos)
+                 self.delegate?.successDidFetchPhotos(photos: self.photos)
             }
         }
     }

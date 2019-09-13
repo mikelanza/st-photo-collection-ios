@@ -242,8 +242,6 @@ class STPhotoCollectionViewControllerTests: XCTestCase {
         XCTAssertTrue(collectionViewSpy.insertItemsCalled)
     }
     
-    // MARK: Fetch image
-    
     func testDisplayWillFetchImageForPhoto() {
         let cellInterfaceSpy = STPhotoCollectionViewCellInterfaceSpy()
         let displayedPhoto = PhotoCollectionSeeds().getDisplayedPhoto()
