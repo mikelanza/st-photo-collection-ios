@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
  s.name = 'STPhotoCollection'
- s.version = '0.1.2'
+ s.version = '0.1.3'
  s.license = { :type => "MIT", :file => "LICENSE" }
  s.summary = 'Photo collection for Streetography'
  s.homepage = 'https://streetography.com'
- s.social_media_url = 'https://twitter.com/ '
+ s.social_media_url = 'https://streetography.com'
  s.authors = { "Streetography" => "info@streetography.com" }
  s.source = { :git => "https://github.com/mikelanza/st-photo-collection-ios.git", :tag => s.version.to_s }
  s.platforms = { :ios => "11.0" }
